@@ -360,15 +360,15 @@ export const getStaticProps = async ({ params }) => {
   const host =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/"
-      : `https://czer0c-vnlist.vercel.app/`;
+      : `https://testvnlist.vercel.app/`;
 
-  //const getVNs = await axios(`${host}api/visualnovels`);
+  const getVNs = await axios(`${host}api/visualnovels`);
 
-  //const { status, fullList } = getVNs.data;
+  const { status, fullList } = getVNs.data;
 
-  const fullList = await axios.get(api3);
+  //const fullList = await axios.get(api3);
 
   return {
-    props: { status: 200, fullList: fullList.data },
+    props: { status, fullList },
   };
 };
