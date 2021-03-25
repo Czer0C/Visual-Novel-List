@@ -357,16 +357,16 @@ export default function Home({ status, fullList }) {
 export const getStaticProps = async ({ params }) => {
   //const request = await fetch(api2);
   // const data = await request.json();
-
+  
   const host =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/"
-      : "https://czer0c-vnlist.vercel.app/";
+      : `${process.cwd()}/pages`;
 
-  const getVNs = await axios(`${host}api/visualnovels`);
+  const getVNs = await axios(`/api/visualnovels`);
 
   const { status, fullList } = getVNs.data;
-
+  console.log(status, fullList);
   return {
     props: { status, fullList },
   };
