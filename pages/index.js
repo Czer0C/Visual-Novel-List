@@ -363,7 +363,7 @@ export const getStaticProps = async ({ params }) => {
       ? "http://localhost:3000/"
       : `${process.cwd()}/pages`;
 
-  const getVNs = await axios(`${host}/api/visualnovels`);
+  const getVNs = await axios(api3);
 
   const { status, fullList } = getVNs.data;
   console.log(status, fullList);
