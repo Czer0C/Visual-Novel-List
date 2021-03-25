@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Router from 'next/router';
 import { GetStaticProps, GetStaticPaths, GetServerSideProps } from "next";
 import Head from "next/head";
 import { Button } from "../components/Button";
@@ -358,16 +357,14 @@ export default function Home({ status, fullList }) {
 export const getStaticProps = async ({ params }) => {
   //const request = await fetch(api2);
   // const data = await request.json();
-  console.log(Router.push('/api/visualnovels'));
   const host =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/"
-      : `testvnlist-7yx7ikt2f-czer0c.vercel.app/`;
+      : `https://czer0c-vnlist.vercel.app/`;
 
   const getVNs = await axios(`${host}api/visualnovels`);
-
+  console.log(host)
   const { status, fullList } = getVNs.data;
-  console.log(status, fullList);
   return {
     props: { status, fullList },
   };
