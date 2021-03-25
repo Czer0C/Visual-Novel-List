@@ -148,7 +148,7 @@ export default function Home({ status, fullList }) {
               
             */}
 
-        {status === 200 ? (
+        {status && status === 200 ? (
           <div className="container mx-auto px-4 xl:px-8 max-w-5xl">
             <div className="py-12">
               <div className="flex flex-row mb-1 sm:mb-0 justify-end w-full">

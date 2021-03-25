@@ -75,7 +75,7 @@ const joinAndClean = (uList: VNInUserList[], vns: VisualNovel[]) => {
             platforms,
             ...formatedVN
         } = vns[index];
-
+        
         return {
             ...formatedBase,
             status: base.labels[0].id,
