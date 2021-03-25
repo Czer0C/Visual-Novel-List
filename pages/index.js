@@ -366,10 +366,9 @@ export const getStaticProps = async ({ params }) => {
 
   const { status, fullList } = getVNs.data;
 
-  //const fullList = await axios.get(api3);
+  //const fullList = await axios.get(api3); // ! For first deployment to generate a fixed domain
 
   return {
-    props: { status, fullList },
-    revalidate: 30 
+    props: { status, fullList }
   };
 };
