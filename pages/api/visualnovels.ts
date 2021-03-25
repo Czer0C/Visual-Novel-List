@@ -7,7 +7,7 @@ import moment from 'moment';
 const userID: string = `131608`;
 const limit: number = 100; // ! Maximum number of item per request (though I doubt I'd ever gonna read this many VN)
 
-type Response = {
+type VNDBResponse = {
     success: boolean,
     message: string,
     data: any[]
@@ -15,7 +15,7 @@ type Response = {
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {     
     try {
-        const getUList: Response = await getUserList(userID, limit);
+        const getUList: VNDBResponse = await getUserList(userID, limit);
 
         if (!getUList.success) {     
             return res.send({ status: 500 });
@@ -32,7 +32,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         try {              
             for (let i = 0; i < pages; i++) {
                 const currentBatchIDs = vnIDs.slice(i * 25, i * 25 + 25);
-                const getCurrentBatch: Response = await getVisualNovel(currentBatchIDs);
+                const getCurrentBatch: VNDBResponse = await getVisualNovel(currentBatchIDs);
 
                 if (!getCurrentBatch.success) {
                     return res.send({ status: 500 });

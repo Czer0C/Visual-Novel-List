@@ -21,8 +21,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-  ],
+    "**/*.tsx", 
+    "pages/api/visualnovels.ts"  ],
   "exclude": [
     "node_modules"
   ]

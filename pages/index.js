@@ -354,7 +354,7 @@ export default function Home({ status, fullList }) {
 //   };
 // }
 
-export const getStaticProps: getStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params }) => {
   //const request = await fetch(api2);
   // const data = await request.json();
 
