@@ -362,11 +362,13 @@ export const getStaticProps = async ({ params }) => {
       ? "http://localhost:3000/"
       : `https://czer0c-vnlist.vercel.app/`;
 
-  const getVNs = await axios(`${host}api/visualnovels`);
+  //const getVNs = await axios(`${host}api/visualnovels`);
 
-  const { status, fullList } = getVNs.data;
+  //const { status, fullList } = getVNs.data;
+
+  const fullList = await axios.get(api3);
 
   return {
-    props: { status: 200, fullList },
+    props: { status: 200, fullList: fullList.data },
   };
 };
