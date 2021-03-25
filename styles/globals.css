@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  background-image: url('../public/bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.index-container {
+  
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.index-main {
+  
+  padding: 5rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.main-row:hover > *,
+.selected-row > * {
+  background-color: #BFDBFE;
+  opacity: 1;
+}
+.main-table {
+  opacity: .90;
+}
+
+
+.main-modal {
+  overflow: hidden;
+
+  transition: all .5s ease-in-out;
+  line-height: 0;
+  padding: 0 1em;
+  color: transparent;
+}
+
+.hidden {
+  display: none;
+}
