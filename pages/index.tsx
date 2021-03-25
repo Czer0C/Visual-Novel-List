@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
+import { GetStaticProps, GetStaticPaths, GetServerSideProps } from "next";
 import Head from "next/head";
 import { Button } from "../components/Button";
 import { Row } from "../components/Row";
 import { Modal } from "../components/Modal";
-import axios from 'axios';
+import axios from "axios";
 
 const api = `https://vndb-3a69f-default-rtdb.firebaseio.com/mylist.json`;
 
@@ -15,10 +15,6 @@ const api2 = "https://laced-healthy-tibia.glitch.me";
 const api3 = "https://czer0c-vndb-backend.herokuapp.com";
 
 export default function Home({ status, fullList }) {
-  if (status !== 200) {
-    return <div>An error has occurred...</div>
-  }
-  
   const [modalOn, setModalOn] = useState(false);
   const [sorted, setSorted] = useState(false);
   const [selectedRow, setSelectedRow] = useState(0);
@@ -60,9 +56,7 @@ export default function Home({ status, fullList }) {
     event.preventDefault();
     const keyword = event.target.value.toLowerCase();
     if (keyword.length === 0) {
-      setDisplayList(() =>
-        fullList.slice(current * 10, (current + 1) * 10)
-      );
+      setDisplayList(() => fullList.slice(current * 10, (current + 1) * 10));
       return;
     }
     setFilteredOn(keyword !== "");
@@ -148,177 +142,187 @@ export default function Home({ status, fullList }) {
           />
         </div>
 
-        <div className="container mx-auto px-4 xl:px-8 max-w-5xl">
-          <div className="py-12">
-            <div className="flex flex-row mb-1 sm:mb-0 justify-end w-full">
-              <div className="text-end">
-                <div className=" relative ">
-                  <input
-                    type="text"
-                    id="form-subscribe-Filter"
-                    className=" w-full h-10 pl-8 pr-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                    placeholder="Filter List"
-                    onChange={handleFilter}
-                  />
-                  <div className="absolute inset-y-0 left-0 flex items-center px-2 pointer-events-none">
-                    <svg className="w-4 h-4" viewBox="0 0 24 24">
-                      <path d="M23.832 19.641l-6.821-6.821c2.834-5.878-1.45-12.82-8.065-12.82-4.932 0-8.946 4.014-8.946 8.947 0 6.508 6.739 10.798 12.601 8.166l6.879 6.879c1.957.164 4.52-2.326 4.352-4.351zm-14.886-4.721c-3.293 0-5.973-2.68-5.973-5.973s2.68-5.973 5.973-5.973c3.294 0 5.974 2.68 5.974 5.973s-2.68 5.973-5.974 5.973z" />
-                    </svg>
+            {/* 
+            
+            // TODO TRY isLOADING
+              
+            */}
+
+        {status === 200 ? (
+          <div className="container mx-auto px-4 xl:px-8 max-w-5xl">
+            <div className="py-12">
+              <div className="flex flex-row mb-1 sm:mb-0 justify-end w-full">
+                <div className="text-end">
+                  <div className=" relative ">
+                    <input
+                      type="text"
+                      id="form-subscribe-Filter"
+                      className=" w-full h-10 pl-8 pr-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                      placeholder="Filter List"
+                      onChange={handleFilter}
+                    />
+                    <div className="absolute inset-y-0 left-0 flex items-center px-2 pointer-events-none">
+                      <svg className="w-4 h-4" viewBox="0 0 24 24">
+                        <path d="M23.832 19.641l-6.821-6.821c2.834-5.878-1.45-12.82-8.065-12.82-4.932 0-8.946 4.014-8.946 8.947 0 6.508 6.739 10.798 12.601 8.166l6.879 6.879c1.957.164 4.52-2.326 4.352-4.351zm-14.886-4.721c-3.293 0-5.973-2.68-5.973-5.973s2.68-5.973 5.973-5.973c3.294 0 5.974 2.68 5.974 5.973s-2.68 5.973-5.974 5.973z" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-              <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
-                <table className="min-w-full leading-normal main-table">
-                  <thead>
-                    <tr>
-                      <th
-                        scope="col"
-                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-bold"
-                      >
-                        #
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-bold"
-                      >
-                        Visual Novel
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-bold"
-                      >
-                        Vote Date
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-bold"
-                      >
-                        Status
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-bold"
-                        style={{ minWidth: "100px" }}
-                      >
-                        Vote
-                        <button
-                          className={`
-                    rounded-md border border-transparent 
-                     bg-transparent text-lg font-large text-gray
-                    focus:outline-none sm:ml-2 
-                    sm:w-auto               `}
-                          onClick={() => {
-                            let temp = Array.from(fullList).sort((a, b) =>
-                              a.vote > b.vote
-                                ? 1 * mode
-                                : b.vote === undefined
-                                ? 1 * mode
-                                : -1 * mode
-                            );
-                            setSorted(true);
-                            setCurrentList(temp);
-                            if (!showAll) {
-                              temp = temp.slice(
-                                current * 10,
-                                (current + 1) * 10
+              <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+                <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                  <table className="min-w-full leading-normal main-table">
+                    <thead>
+                      <tr>
+                        <th
+                          scope="col"
+                          className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-bold"
+                        >
+                          #
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-bold"
+                        >
+                          Visual Novel
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-bold"
+                        >
+                          Vote Date
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-bold"
+                        >
+                          Status
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-bold"
+                          style={{ minWidth: "100px" }}
+                        >
+                          Vote
+                          <button
+                            className={`
+                        rounded-md border border-transparent 
+                         bg-transparent text-lg font-large text-gray
+                        focus:outline-none sm:ml-2 
+                        sm:w-auto               `}
+                            onClick={() => {
+                              let temp = Array.from(fullList).sort((a, b) =>
+                                a.vote > b.vote
+                                  ? 1 * mode
+                                  : b.vote === undefined
+                                  ? 1 * mode
+                                  : -1 * mode
                               );
-                            }
-                            setDisplayList(temp);
-                            setMode(-1 * mode);
-                          }}
+                              setSorted(true);
+                              setCurrentList(temp);
+                              if (!showAll) {
+                                temp = temp.slice(
+                                  current * 10,
+                                  (current + 1) * 10
+                                );
+                              }
+                              setDisplayList(temp);
+                              setMode(-1 * mode);
+                            }}
+                          >
+                            {mode === 1 ? "↓" : "↑"}
+                          </button>
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                        ></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {displayList && displayList.length > 0
+                        ? displayList.map((vn, idx) => (
+                            <Row
+                              data={vn}
+                              index={idx}
+                              selectedRow={modalOn && selectedRow}
+                              toggleModal={() => onSelectRow(idx)}
+                            />
+                          ))
+                        : null}
+                    </tbody>
+                  </table>
+
+                  {/* 
+                    
+                      // !PAGINATION 
+                    
+                    */}
+
+                  {displayList.length !== fullList.length ? (
+                    <div className="px-5 opacity-90 bg-white py-5 flex flex-col xs:flex-row items-center xs:justify-between">
+                      <div className="flex items-center">
+                        <button
+                          type="button"
+                          className={`${prevBtnClass} ${
+                            current === 0
+                              ? "disabled:opacity-50 cursor-not-allowed"
+                              : ""
+                          }`}
+                          onClick={() => switchPage(-1, true)}
+                          disabled={current === 0}
                         >
-                          {mode === 1 ? "↓" : "↑"}
+                          <svg
+                            width="9"
+                            fill="currentColor"
+                            height="8"
+                            className=""
+                            viewBox="0 0 1792 1792"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M1427 301l-531 531 531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19l-742-742q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z"></path>
+                          </svg>
                         </button>
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                      ></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {displayList && displayList.length > 0
-                      ? displayList.map((vn, idx) => (
-                          <Row
-                            data={vn}
-                            index={idx}
-                            selectedRow={modalOn && selectedRow}
-                            toggleModal={() => onSelectRow(idx)}
+                        {[...Array(pages).keys()].map((i) => (
+                          <Button
+                            className={`w-full px-4 py-2 border-t border-b text-base text-indigo-500 ${
+                              i === current ? "bg-gray-200" : "bg-white"
+                            } hover:bg-gray-200`}
+                            text={i + 1}
+                            eventHandler={() => switchPage(i, false)}
                           />
-                        ))
-                      : null}
-                  </tbody>
-                </table>
-
-                {/* 
-                
-                  // !PAGINATION 
-                
-                */}
-
-                {displayList.length !== fullList.length ? (
-                  <div className="px-5 opacity-90 bg-white py-5 flex flex-col xs:flex-row items-center xs:justify-between">
-                    <div className="flex items-center">
-                      <button
-                        type="button"
-                        className={`${prevBtnClass} ${
-                          current === 0
-                            ? "disabled:opacity-50 cursor-not-allowed"
-                            : ""
-                        }`}
-                        onClick={() => switchPage(-1, true)}
-                        disabled={current === 0}
-                      >
-                        <svg
-                          width="9"
-                          fill="currentColor"
-                          height="8"
-                          className=""
-                          viewBox="0 0 1792 1792"
-                          xmlns="http://www.w3.org/2000/svg"
+                        ))}
+                        <button
+                          type="button"
+                          className={`${nextBtnClass} ${
+                            current === pages - 1
+                              ? "disabled:opacity-50 cursor-not-allowed"
+                              : ""
+                          }`}
+                          onClick={() => switchPage(1, true)}
+                          disabled={current === pages - 1}
                         >
-                          <path d="M1427 301l-531 531 531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19l-742-742q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z"></path>
-                        </svg>
-                      </button>
-                      {[...Array(pages).keys()].map((i) => (
-                        <Button
-                          className={`w-full px-4 py-2 border-t border-b text-base text-indigo-500 ${
-                            i === current ? "bg-gray-200" : "bg-white"
-                          } hover:bg-gray-200`}
-                          text={i + 1}
-                          eventHandler={() => switchPage(i, false)}
-                        />
-                      ))}
-                      <button
-                        type="button"
-                        className={`${nextBtnClass} ${
-                          current === pages - 1
-                            ? "disabled:opacity-50 cursor-not-allowed"
-                            : ""
-                        }`}
-                        onClick={() => switchPage(1, true)}
-                        disabled={current === pages - 1}
-                      >
-                        <svg
-                          width="9"
-                          fill="currentColor"
-                          height="8"
-                          className=""
-                          viewBox="0 0 1792 1792"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path>
-                        </svg>
-                      </button>
+                          <svg
+                            width="9"
+                            fill="currentColor"
+                            height="8"
+                            className=""
+                            viewBox="0 0 1792 1792"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path>
+                          </svg>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ) : null}
+                  ) : null}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          "An error has occurred"
+        )}
 
         <Modal
           isVisible={modalOn}
@@ -361,12 +365,9 @@ export const getStaticProps: getStaticProps = async ({ params }) => {
 
   const getVNs = await axios(`${host}api/visualnovels`);
 
-  const {
-    status,
-    fullList
-  } = getVNs.data
+  const { status, fullList } = getVNs.data;
 
   return {
     props: { status, fullList },
   };
-}
+};
