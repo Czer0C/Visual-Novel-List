@@ -4,6 +4,7 @@ import Head from "next/head";
 import { Button } from "../components/Button";
 import { Row } from "../components/Row";
 import { Modal } from "../components/Modal";
+import axios from 'axios';
 
 const api = `https://vndb-3a69f-default-rtdb.firebaseio.com/mylist.json`;
 
@@ -13,7 +14,11 @@ const api2 = "https://laced-healthy-tibia.glitch.me";
 // ? Backup
 const api3 = "https://czer0c-vndb-backend.herokuapp.com";
 
-export default function Home({ visualnovels }) {
+export default function Home({ status, fullList }) {
+  if (status !== 200) {
+    return <div>An error has occurred...</div>
+  }
+  
   const [modalOn, setModalOn] = useState(false);
   const [sorted, setSorted] = useState(false);
   const [selectedRow, setSelectedRow] = useState(0);
@@ -21,12 +26,12 @@ export default function Home({ visualnovels }) {
   const [showAll, setShowAll] = useState(false);
   const [filteredOn, setFilteredOn] = useState(false);
   const [displayList, setDisplayList] = useState(() =>
-    visualnovels.slice(current * 10, (current + 1) * 10)
+    fullList.slice(current * 10, (current + 1) * 10)
   );
-  const [currentList, setCurrentList] = useState(visualnovels);
+  const [currentList, setCurrentList] = useState(fullList);
 
   const [mode, setMode] = useState(1);
-  const pages = Math.ceil(visualnovels.length / 10);
+  const pages = Math.ceil(fullList.length / 10);
 
   const prevBtnClass =
     "w-full p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100";
@@ -56,12 +61,12 @@ export default function Home({ visualnovels }) {
     const keyword = event.target.value.toLowerCase();
     if (keyword.length === 0) {
       setDisplayList(() =>
-        visualnovels.slice(current * 10, (current + 1) * 10)
+        fullList.slice(current * 10, (current + 1) * 10)
       );
       return;
     }
     setFilteredOn(keyword !== "");
-    const filtered = visualnovels.filter(
+    const filtered = fullList.filter(
       (vn) =>
         vn.vn.title.toLowerCase().includes(keyword) ||
         vn.vn.original?.includes(keyword) ||
@@ -72,10 +77,10 @@ export default function Home({ visualnovels }) {
   };
 
   const unsort = () => {
-    let temp = visualnovels;
+    let temp = fullList;
     setCurrentList(temp);
     if (!showAll) {
-      temp = visualnovels.slice(current * 10, (current + 1) * 10);
+      temp = fullList.slice(current * 10, (current + 1) * 10);
     }
     setSorted(false);
     setDisplayList(temp);
@@ -182,19 +187,19 @@ export default function Home({ visualnovels }) {
                       </th>
                       <th
                         scope="col"
-                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-bold"
+                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-bold"
                       >
                         Vote Date
                       </th>
                       <th
                         scope="col"
-                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-bold"
+                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-bold"
                       >
                         Status
                       </th>
                       <th
                         scope="col"
-                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-bold"
+                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-bold"
                         style={{ minWidth: "100px" }}
                       >
                         Vote
@@ -205,7 +210,7 @@ export default function Home({ visualnovels }) {
                     focus:outline-none sm:ml-2 
                     sm:w-auto               `}
                           onClick={() => {
-                            let temp = Array.from(visualnovels).sort((a, b) =>
+                            let temp = Array.from(fullList).sort((a, b) =>
                               a.vote > b.vote
                                 ? 1 * mode
                                 : b.vote === undefined
@@ -253,7 +258,7 @@ export default function Home({ visualnovels }) {
                 
                 */}
 
-                {displayList.length !== visualnovels.length ? (
+                {displayList.length !== fullList.length ? (
                   <div className="px-5 opacity-90 bg-white py-5 flex flex-col xs:flex-row items-center xs:justify-between">
                     <div className="flex items-center">
                       <button
@@ -317,7 +322,7 @@ export default function Home({ visualnovels }) {
 
         <Modal
           isVisible={modalOn}
-          details={visualnovels[selectedRow]}
+          details={fullList[selectedRow]}
           selected={selectedRow}
           toggleModal={() => setModalOn(false)}
         />
@@ -336,12 +341,12 @@ export default function Home({ visualnovels }) {
 //       ? "http://localhost:3000/"
 //       : `https://${req.headers.host}/`;
 
-//   const getVNs = await fetch(`${host}api/visualnovels`);
+//   const getVNs = await fetch(`${host}api/fullList`);
 
 //   const vns = await getVNs.json();
 
 //   return {
-//     props: { visualnovels: vns },
+//     props: { fullList: vns },
 //   };
 // }
 
@@ -354,11 +359,14 @@ export const getStaticProps: getStaticProps = async ({ params }) => {
       ? "http://localhost:3000/"
       : "https://czer0c-vnlist.vercel.app/";
 
-  const getVNs = await fetch(`${host}api/visualnovels`);
+  const getVNs = await axios(`${host}api/visualnovels`);
 
-  const vns = await getVNs.json();
+  const {
+    status,
+    fullList
+  } = getVNs.data
 
   return {
-    props: { visualnovels: vns },
+    props: { status, fullList },
   };
 }

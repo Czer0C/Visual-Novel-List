@@ -28,16 +28,17 @@ export const Modal = ({ details, toggleModal, isVisible }) => {
 
 
   const transition = {
-    duration: 0,
-    ease: "easeInOut",type: "tween"
+    duration: 0.1,
+    ease: "easeInOut"
   };
   const variants = {
-    hidden: {
-      
+    hidden: {      
+      opacity: 0,
       scale: 0,
       transition,
     },
     show: {
+      opacity: 1,
       scale: 1,
       transition,
     },
