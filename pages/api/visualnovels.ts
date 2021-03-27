@@ -1,3 +1,7 @@
+
+// ! DEPRECATED 
+// ? KEEPING THIS AS A GRIM REMINDER OF PAST BLUNDERS
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getUserList, getVisualNovel} from '../../services/vndb/index';
 import { VisualNovel, VNInUserList } from '../../services/vndb/types';

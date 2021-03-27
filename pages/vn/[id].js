@@ -137,60 +137,60 @@ export default function Vn({ vn }) {
   );
 }
 
-// export async function getServerSideProps({ params }) {
-//     const req = await fetch(api);
-//     const data = await req.json();
+export async function getServerSideProps({ params }) {
+    const req = await fetch(api);
+    const data = await req.json();
 
-//     const getDate = await fetch(`https://vnstat.net/api/novel/${params.id}`);
+    const getDate = await fetch(`https://vnstat.net/api/novel/${params.id}`);
 
-//     const releasedDate = await getDate.json();
+    const releasedDate = await getDate.json();
 
-//     const vn = data.filter(v => v.ID.toString() === params.id)[0];
+    const vn = data.filter(v => v.ID.toString() === params.id)[0];
 
-//     vn.added = vn.added === undefined ? 'Not rated' : isoFormatDMY(parseISOString(vn.added));
+    vn.added = vn.added === undefined ? 'Not rated' : isoFormatDMY(parseISOString(vn.added));
 
-//     vn.released = releasedDate.result.basic.released;
+    vn.released = releasedDate.result.basic.released;
 
-//     return {
-//         props: { vn },
-//     }
+    return {
+        props: { vn },
+    }
+}
+
+// export async function getStaticProps({ params }) {
+//   const req = await fetch(api);
+//   const getDate = await fetch(`https://vnstat.net/api/novel/${params.id}`);
+
+//   const releasedDate = await getDate.json();
+
+//   const data = await req.json();
+
+//   const vn = data.filter((v) => v.ID.toString() === params.id)[0];
+
+//   vn.added =
+//     vn.added === undefined
+//       ? "Not rated"
+//       : isoFormatDMY(parseISOString(vn.added));
+
+//   vn.released = releasedDate.result.basic.released;
+
+//   return {
+//     props: { vn },
+//   };
 // }
 
-export async function getStaticProps({ params }) {
-  const req = await fetch(api);
-  const getDate = await fetch(`https://vnstat.net/api/novel/${params.id}`);
+// export async function getStaticPaths() {
+//   const req = await fetch(api);
+//   const data = await req.json();
 
-  const releasedDate = await getDate.json();
+//   const paths = data.map((vn) => {
+//     return { params: { id: vn.ID.toString() } };
+//   });
 
-  const data = await req.json();
-
-  const vn = data.filter((v) => v.ID.toString() === params.id)[0];
-
-  vn.added =
-    vn.added === undefined
-      ? "Not rated"
-      : isoFormatDMY(parseISOString(vn.added));
-
-  vn.released = releasedDate.result.basic.released;
-
-  return {
-    props: { vn },
-  };
-}
-
-export async function getStaticPaths() {
-  const req = await fetch(api);
-  const data = await req.json();
-
-  const paths = data.map((vn) => {
-    return { params: { id: vn.ID.toString() } };
-  });
-
-  return {
-    paths,
-    fallback: false,
-  };
-}
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
 
 function parseLength(length) {
   switch (length) {

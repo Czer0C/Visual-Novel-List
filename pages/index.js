@@ -4,17 +4,14 @@ import Head from "next/head";
 import { Button } from "../components/Button";
 import { Row } from "../components/Row";
 import { Modal } from "../components/Modal";
-import axios from "axios";
+import moment from "moment";
 
-const api = `https://vndb-3a69f-default-rtdb.firebaseio.com/mylist.json`;
+import { getUserList, getVisualNovel } from "../services/vndb/index";
 
-// ! Main
-const api2 = "https://laced-healthy-tibia.glitch.me";
+const userID = `131608`;
+const limit = 100; // ! Maximum number of item per request (though I doubt I'd ever gonna read this many VN)
 
-// ? Backup
-const api3 = "https://czer0c-vndb-backend.herokuapp.com";
-
-export default function Home({ status, fullList }) {
+const Home = ({ fullList }) => {
   const [modalOn, setModalOn] = useState(false);
   const [sorted, setSorted] = useState(false);
   const [selectedRow, setSelectedRow] = useState(0);
@@ -25,6 +22,9 @@ export default function Home({ status, fullList }) {
     fullList.slice(current * 10, (current + 1) * 10)
   );
   const [currentList, setCurrentList] = useState(fullList);
+
+
+  
 
   const [mode, setMode] = useState(1);
   const pages = Math.ceil(fullList.length / 10);
@@ -42,7 +42,7 @@ export default function Home({ status, fullList }) {
         transition duration-300 ease-in-out
         focus:ring-offset-2 rounded-full
       `;
-
+  const test = "asdasdasdasd";
   const showAllBtnClass = `
       py-3 px-6
       focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white 
@@ -142,13 +142,13 @@ export default function Home({ status, fullList }) {
           />
         </div>
 
-            {/* 
+        {/* 
             
             // TODO TRY isLOADING
               
             */}
 
-        {status && status === 200 ? (
+        {fullList && fullList.length > 0 ? (
           <div className="container mx-auto px-4 xl:px-8 max-w-5xl">
             <div className="py-12">
               <div className="flex flex-row mb-1 sm:mb-0 justify-end w-full">
@@ -211,7 +211,7 @@ export default function Home({ status, fullList }) {
                         focus:outline-none sm:ml-2 
                         sm:w-auto               `}
                             onClick={() => {
-                              let temp = Array.from(fullList).sort((a, b) =>
+                              const temp = Array.from(fullList).sort((a, b) =>
                                 a.vote > b.vote
                                   ? 1 * mode
                                   : b.vote === undefined
@@ -335,40 +335,92 @@ export default function Home({ status, fullList }) {
   );
 }
 
+export default Home; 
+
+// ! Server Side Rendering
 // export async function getServerSideProps({ req, params }) {
-//   // const request = await fetch(api);
-
-//   // const data = await request.json();
-
-//   const host =
-//     process.env.NODE_ENV === "development"
-//       ? "http://localhost:3000/"
-//       : `https://${req.headers.host}/`;
-
-//   const getVNs = await fetch(`${host}api/fullList`);
-
-//   const vns = await getVNs.json();
+//   const fullList = await getFullList();
 
 //   return {
 //     props: { fullList: vns },
 //   };
 // }
 
+// ! Static Site Generator
 export const getStaticProps = async ({ params }) => {
-  //const request = await fetch(api2);
-  // const data = await request.json();
-  const host =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000/"
-      : `https://testvnlist.vercel.app/`;
-
-  const getVNs = await axios(`${host}api/visualnovels`);
-
-  const { status, fullList } = getVNs.data;
-
-  //const fullList = await axios.get(api3); // ! For first deployment to generate a fixed domain
-
+  const fullList = await getFullList();
+  
   return {
-    props: { status, fullList }
+    props: { fullList },
   };
+};
+
+const getFullList = async () => {
+  try {
+    const getUList = await getUserList(userID, limit);
+
+    if (!getUList.success) {
+      console.error("Could not fetch ulist");
+    }
+
+    const userList = getUList.data;
+
+    const vnIDs = getUList.data.map((item) => item.vn);
+
+    const pages = Math.ceil(userList.length / 25); // ! VNDB only allows 25 items per request for get VN query
+
+    const visualNovels = [];
+
+    for (let i = 0; i < pages; i++) {
+      const currentBatchIDs = vnIDs.slice(i * 25, i * 25 + 25);
+      const getCurrentBatch = await getVisualNovel(currentBatchIDs);
+
+      if (!getCurrentBatch.success) {
+        console.error("Could not fetch VNs");
+      }
+
+      visualNovels.push(...getCurrentBatch.data);
+    }
+
+    return joinAndClean(userList, visualNovels);
+    
+  } catch (error) {
+    console.error(error);
+  }
+
+  return [];
+}
+
+const joinAndClean = (uList, vns) => {
+  const fullList = uList.map((base, index) => {
+    const {
+      labels,
+      lastmod,
+      started,
+      finished,
+      added,
+      uid,
+      ...formatedBase
+    } = base;
+
+    const {
+      languages,
+      aliases,
+      image_flagging,
+      orig_lang,
+      links,
+      platforms,
+      ...formatedVN
+    } = vns[index];
+
+    return {
+      ...formatedBase,
+      status: base.labels[0].id,
+      vote: base.vote / 10 || "Not Rated",
+      voted: moment(base.voted * 1000).format("MM/DD/YYYY") || "Not Rated",
+      vn: formatedVN,
+    };
+  });
+
+  return fullList;
 };
