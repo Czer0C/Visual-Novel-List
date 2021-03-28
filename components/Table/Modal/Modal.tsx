@@ -66,7 +66,7 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
         animate={isVisible ? "show" : "hidden"}
         exit="hidden"
         variants={variants}
-        className={`main-modal fixed  inset-0 opacity-100 mt-5`}
+        className={`main-modal fixed  inset-0 opacity-100 mt-5 overflow-auto`}
         aria-labelledby="dialog-1-title"
         role="dialog"
         aria-modal="true"
@@ -129,7 +129,7 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
                   </div>
                 </div>
                 <span
-                  className={`px-4 ml-24 text-xs leading-5 font-semibold rounded-full 
+                  className={`px-4 ml-16 text-xs leading-5 font-semibold rounded-full 
                               bg-${parseStatusColor(status)}-300 
                               text-${parseStatusColor(status)}-800`}
                 >
@@ -139,12 +139,12 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
             </div>
 
             <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-              <div className="grid grid-flow-col gap-4 px-8 max-w-screen-xl">
+              <div className="grid grid-flow-col gap-4 px-20 max-w-screen-xl">
                 <div className="col-span-1">
                   <div className="">
                     <dl>
                       <div className="bg-gray-400 px-4 py-3 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6">
-                        <dt className=" font-medium text-black text-lg content-center">
+                        <dt className=" font-medium text-black text-lg text-right mr-20 content-center">
                           Synopsis
                         </dt>
                         <dd className="mt-1  text-gray-900 sm:mt-0 sm:col-span-3">
@@ -169,7 +169,7 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
                           status
                         )}-100 px-4 py-3 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6`}
                       >
-                        <dt className="textg text-lg font-medium text-indigo-800 content-center">
+                        <dt className="textg text-lg  text-right mr-20 font-medium text-indigo-800 content-center">
                           Some Thoughts
                           <p className="font-semibold mt-8">
                             Voted on {voted}
