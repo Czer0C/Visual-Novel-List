@@ -1,6 +1,5 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
@@ -12,7 +11,13 @@ import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 // <AnimatePresence>{isOpen && <Content />}</AnimatePresence>
 // </motion.li>
 
-export const Modal = ({ details, toggleModal, isVisible }) => {
+interface ModalProps {
+  details: any;
+  toggleModal: () => void;
+  isVisible: boolean;
+}
+
+export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
   const { vote, added, voted, status, notes } = details;
   const {
     description,
@@ -42,7 +47,7 @@ export const Modal = ({ details, toggleModal, isVisible }) => {
     },
   };
 
-  const colorRating = (vote) => {
+  const colorRating = (vote: number) => {
     return vote > 9
       ? "green"
       : vote > 8
@@ -61,46 +66,50 @@ export const Modal = ({ details, toggleModal, isVisible }) => {
         animate={isVisible ? "show" : "hidden"}
         exit="hidden"
         variants={variants}
-        class={`main-modal fixed  inset-0 opacity-100 mt-5`}
+        className={`main-modal fixed  inset-0 opacity-100 mt-5`}
         aria-labelledby="dialog-1-title"
         role="dialog"
         aria-modal="true"
         onClick={toggleModal}
       >
-        <div class="flex items-end justify-center pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="flex items-end justify-center pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <div
-            class="
+            className="
             inline-block align-bottom bg-white text-left rounded-lg overflow-hidden 
             shadow-xl transform transition-all max-w-7xl"
           >
-            <div className="px-4 py-5 sm:grid sm:grid-cols-4 items-center sm:gap-8 sm:px-6">
-              <h1 className="text-5xl text-green-400 text-center col-span-3 font-semibold ">
+            <div className="px-4 py-5 sm:grid sm:grid-cols-8 items-center sm:gap-8 sm:px-6">
+              <div className="col-span-2 ml-auto">
+                <img className="py-2 max-h-80"   src={image} />
+              </div>
+              <h1 className="ml-16 text-4xl text-green-400 text-center col-span-4 font-semibold ">
                 {title}
                 {original && (
                   <h3 className="text-2xl mt-3 text-green-200 font-semibold">
                     {original}
                   </h3>
                 )}
-                <p className="text-lg mt-3 font-semibold text-gray-500">
-                            (Released on {released})
+                <p className="text-base mt-3 font-semibold text-gray-500">
+                  Released on {released}
+                </p>
+                <p className="text-base mt-3 font-semibold text-gray-500">
+                  {parseLength(length)}
                 </p>
               </h1>
 
-              <div class="shadow-lg rounded-2xl col-span-1 w-36 p-4 bg-white dark:bg-gray-800 mr-auto">
-                <div class="flex items-center">
-                  
-                </div>
-                <div class="flex flex-row">
-                  <div class="single-chart">
-                    <svg viewBox="0 0 36 36" class="circular-chart">
+              <div className="mr-auto shadow-lg rounded-2xl col-span-2 w-48  bg-white dark:bg-gray-800">
+                <div className="flex items-center"></div>
+                <div className="flex flex-row">
+                  <div className="single-chart ml-auto">
+                    <svg viewBox="0 0 36 36" className="circular-chart">
                       <path
-                        class="circle-bg"
+                        className="circle-bg"
                         d="M18 2.0845
           a 15.9155 15.9155 0 0 1 0 31.831
           a 15.9155 15.9155 0 0 1 0 -31.831"
                       />
                       <path
-                        class="circle stroke-current text-green-300"
+                        className="circle stroke-current text-green-300"
                         stroke-dasharray={[vote * 10, 100]}
                         d="M18 2.0845
           a 15.9155 15.9155 0 0 1 0 31.831
@@ -115,45 +124,39 @@ export const Modal = ({ details, toggleModal, isVisible }) => {
                         textAnchor="middle"
                       >
                         {vote}
-                        
                       </text>
                     </svg>
                   </div>
-                  
                 </div>
                 <span
-                            className={`px-4 ml-5 text-xs leading-5 font-semibold rounded-full 
+                  className={`px-4 ml-24 text-xs leading-5 font-semibold rounded-full 
                               bg-${parseStatusColor(status)}-300 
                               text-${parseStatusColor(status)}-800`}
-                          >
-                            {parseStatus(status)}
-                          </span>
+                >
+                  {parseStatus(status)}
+                </span>
               </div>
             </div>
 
             <div className="bg-white shadow overflow-hidden sm:rounded-lg">
               <div className="grid grid-flow-col gap-4 px-8 max-w-screen-xl">
-                <div className="row-span-6">
-                  <img className="py-2" src={image} />
-                </div>
                 <div className="col-span-1">
                   <div className="">
                     <dl>
                       <div className="bg-gray-400 px-4 py-3 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6">
                         <dt className=" font-medium text-black text-lg content-center">
                           Synopsis
-                          
                         </dt>
                         <dd className="mt-1  text-gray-900 sm:mt-0 sm:col-span-3">
                           {description.slice(0, 500)}
-                          {description.length > 500 ? (                            
+                          {description.length > 500 ? (
                             <Tippy content="Read more on VNDB">
                               <a
                                 href={`https://vndb.org/v${id}`}
                                 target="_blank"
                                 className="text-indigo-500 hover:text-indigo-700 sm:ml-4"
                               >
-                               <FontAwesomeIcon icon={faExternalLinkAlt} />
+                                <FontAwesomeIcon icon={faExternalLinkAlt} />
                               </a>
                             </Tippy>
                           ) : (
@@ -166,25 +169,16 @@ export const Modal = ({ details, toggleModal, isVisible }) => {
                           status
                         )}-100 px-4 py-3 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6`}
                       >
-                        <dt className="text-lg font-medium text-indigo-800 content-center">
+                        <dt className="textg text-lg font-medium text-indigo-800 content-center">
                           Some Thoughts
-                          
-                          <p className="text-lg font-semibold mt-8">
+                          <p className="font-semibold mt-8">
                             Voted on {voted}
                           </p>
                         </dt>
-                        <dd className="mt-1 text-base text-indigo-600 sm:mt-0 sm:col-span-3 items-center">
+                        <dd className="mt-1 text-indigo-600 sm:mt-0 sm:col-span-3 items-center">
                           {notes}
-                          
                         </dd>
                       </div>
-
-                      {/* <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt className=" font-medium text-gray-500">Vote</dt>
-                        <dd className="mt-1  text-gray-900 sm:mt-0 sm:col-span-2">
-                          {vote}
-                        </dd>
-                      </div> */}
 
                       {/* <div className="bg-gray-400 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt className=" font-medium text-gray-500">Status</dt>
@@ -205,11 +199,11 @@ export const Modal = ({ details, toggleModal, isVisible }) => {
             </div>
             <br />
 
-            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
               <button
                 onClick={toggleModal}
                 type="button"
-                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 
+                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 
                 py-2 bg-pink-600 text-base font-medium text-white hover:bg-pink-700 
                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
               >
@@ -223,7 +217,7 @@ export const Modal = ({ details, toggleModal, isVisible }) => {
   );
 };
 
-function parseLength(length) {
+function parseLength(length: number) {
   switch (length) {
     case 1:
       return "Very Short (< 2 hours)";
@@ -240,7 +234,7 @@ function parseLength(length) {
   }
 }
 
-function parseStatus(status) {
+function parseStatus(status: number) {
   switch (status) {
     case 1:
       return "Playing";
@@ -257,7 +251,7 @@ function parseStatus(status) {
   }
 }
 
-function parseStatusColor(status) {
+function parseStatusColor(status: number) {
   switch (status) {
     case 1:
       return "gray";

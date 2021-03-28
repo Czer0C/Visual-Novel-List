@@ -1,12 +1,9 @@
 import React, { ChangeEvent, useState } from "react";
 import { Header } from "../common/Header";
 import { Pagination } from "./Pagination/Pagination";
-import { UnsortButton } from "./TopController/UnsortButton";
 import { ShowAllButton } from "./TopController/ShowAllButton";
 import { Filter } from "./TopController/Filter";
 import { Main } from "./Main/Main";
-import { Modal } from "./Modal/Modal";
-
 interface TableProps {
   fullList: object[];
 }
