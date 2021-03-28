@@ -15,6 +15,7 @@ const statusMapping = [
   "Wishlist",
   "Blacklist",
 ];
+
 const colorMapping = [
   "purple", 
   "green", 
@@ -24,8 +25,27 @@ const colorMapping = [
   "purple"
 ];
 
-export const Row = ({ data, index, selectedRow, toggleModal }) => {
-  const { vote, added, voted, status } = data;
+interface RowProps {
+  data: Entry,
+  index: number,
+  selectedRow: number,
+  toggleModal: () => void
+}
+
+type Entry = {
+  notes: string,
+  voted: string,
+  vote: number,
+  status: number,
+  vn: VisualNovel
+}
+
+type VisualNovel = {
+  [name: string]: any
+}
+
+export const Row = ({ data, index, selectedRow, toggleModal }: RowProps) => {
+  const { vote, voted, status } = data;
   const {
     description,
     image,
@@ -44,10 +64,13 @@ export const Row = ({ data, index, selectedRow, toggleModal }) => {
       }`}
       onClick={toggleModal}
     >
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">{index + 1}</p>
+      <td className="w-24 py-4 border-b border-gray-200 bg-white text-sm text-center">
+        <p className="text-gray-900 whitespace-no-wrap">
+          {index + 1}
+        </p>
       </td>
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+
+      <td className="w-screen px-4 py-4 border-b border-gray-200 bg-white text-sm">
         <div className="flex items-center">
           <div className="flex-shrink-0">
             <a href="#" className="block relative">
@@ -59,7 +82,7 @@ export const Row = ({ data, index, selectedRow, toggleModal }) => {
             </a>
           </div>
           <div className="ml-4">
-            <div className="text-sm font-medium text-gray-900">
+            <div className="text-sm font-medium text-gray-900" >
               {title}
 
               <Tippy content="View on VNDB">
@@ -76,15 +99,8 @@ export const Row = ({ data, index, selectedRow, toggleModal }) => {
           </div>
         </div>
       </td>
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p
-          className="text-gray-900 whitespace-no-wrap"
-          style={{ minWidth: "75px" }}
-        >
-          {voted}
-        </p>
-      </td>
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+      
+      <td className="w-24 px-4 py-4 border-b border-gray-200 bg-white text-sm text-center">
         <span
           className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
           bg-${colorMapping[status - 1]}-100 text-${
@@ -94,16 +110,13 @@ export const Row = ({ data, index, selectedRow, toggleModal }) => {
           {statusMapping[status - 1]}
         </span>
       </td>
-      <td
-        className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center"
-        style={{ minWidth: "111px" }}
-      >
+      <td className="w-24 px-4 py-4 border-b border-gray-200 bg-white text-sm text-center">
         {vote}
       </td>
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+      <td className="w-24 px-4 py-4 border-b border-gray-200 bg-white text-sm text-center">
         {status !== 1 ? (
-          <Link href={`/vn/${id}`}>
-            <a className="text-indigo-600 hover:text-indigo-900 text-center">
+          <Link href="javascript:void(0)" >
+            <a className="text-indigo-600 hover:text-indigo-900 text-center pointer-events-none">
               Detail
             </a>
           </Link>

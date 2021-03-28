@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 import Head from "next/head";
-import styles from "../../styles/Home.module.css";
 
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
@@ -15,12 +14,12 @@ export default function Vn({ vn }) {
   const router = useRouter();
   const { id } = router.query;
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>{vn.title}</title>
       </Head>
 
-      <main className={styles.main}>
+      <main>
         <div className="px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-8 sm:px-6 text-center">
           <h1 className="text-6xl text-green-400 font-semibold py-3 ">
             {vn.title}
@@ -79,7 +78,7 @@ export default function Vn({ vn }) {
                   <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt className=" font-medium text-gray-500">Vote</dt>
                     <dd className="mt-1  text-gray-900 sm:mt-0 sm:col-span-2">
-                      {vn.vote === null ? "Not Rated" : vn.vote / 10}
+                      {vn.vote === null ? "Unrated" : vn.vote / 10}
                     </dd>
                   </div>
 

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
@@ -17,12 +17,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve"
+    ,
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@partial/*": ["components/partial/*"],
+    },
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx", 
-    "pages/api/visualnovels.ts"  ],
+    "pages/api/visualnovels.ts", "pages/index.tsx"  ],
   "exclude": [
     "node_modules"
   ]
