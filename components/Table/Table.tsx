@@ -75,7 +75,7 @@ export const Table = ({ fullList }: TableProps) => {
     setDisplayList(nextList);
   };
 
-  console.log({ filteredOn });
+  
   return (
     <div className={`index-container`}>
       <main className="index-main">
@@ -84,7 +84,7 @@ export const Table = ({ fullList }: TableProps) => {
         {/* //? Table Container */}
         {fullList && fullList.length > 0 ? (
           <div
-          className="container mx-auto px-4 xl:px-8 max-w-screen-lg w-screen"
+          className="container mx-auto px-4 xl:px-8 xl:max-w-screen-lg max-w-screen-md w-screen"
           id="skeleton"
         >
             <div className="py-8">

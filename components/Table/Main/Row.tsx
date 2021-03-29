@@ -82,7 +82,7 @@ export const Row = ({ data, index, selectedRow, toggleModal }: RowProps) => {
             </a>
           </div>
           <div className="ml-4">
-            <div className="text-sm font-medium text-gray-900" >
+            <div className="text-sm  font-medium text-gray-900 max-w-xs overflow-hidden whitespace-nowrap overflow-ellipsis" >
               {title}
 
               <Tippy content="View on VNDB">
@@ -95,7 +95,7 @@ export const Row = ({ data, index, selectedRow, toggleModal }: RowProps) => {
                 </a>
               </Tippy>
             </div>
-            <div className="text-sm text-gray-500">{original}</div>
+            <div className="text-sm text-gray-500 max-w-xs overflow-hidden whitespace-nowrap overflow-ellipsis">{original}</div>
           </div>
         </div>
       </td>

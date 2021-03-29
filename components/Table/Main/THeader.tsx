@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 interface THeaderProps {
   children: any;
-  sortable?: boolean;
   align?: "center" | "left" | "right" | "justify";
+  type: "sort" | "multiselect" | "normal";
 }
 
 enum Mode {
@@ -12,23 +12,29 @@ enum Mode {
   DESCENDING = 2,
 }
 
-export const THeader = ({ children, sortable, align }: THeaderProps) => {
-  const [mode, setMode] = useState(Mode.UNSORTED);
+enum HeaderType {
+  SORT = "sort",
+  MULTISELECT = "multiselect",
+  NORMAL = "normal"
+}
 
+export const THeader = ({ children, align, type }: THeaderProps) => {
+  const [mode, setMode] = useState(Mode.UNSORTED);
+  console.log({type})
   return (
     <th
       scope="col"
-      className={`w-52 px-4 py-4 bg-white text-${align || "center"} 
-      border-b border-gray-200  text-gray-800 
-      text-sm uppercase font-bold                    
-                    ${!sortable && `pointer-events-none`}
-                    ${sortable && `hover:border-gray-600 cursor-pointer `} 
+      className={`px-4 py-4 bg-white text-${align || "center"} 
+      border-b border-gray-200 transition-colors ease-in  text-gray-800 
+      text-sm uppercase font-bold
+                    ${'w-52'}
+                    ${type === HeaderType.SORT && `hover:border-gray-600 cursor-pointer `} 
                     ${mode && `border-gray-600`}
                 `}
-      onClick={() => setMode(((mode + 1) % 3) * (sortable ? 1 : 0))}
+      onClick={() => setMode(((mode + 1) % 3) * (type === HeaderType.SORT ? 1 : 0))}
     >
       {children}
-      {sortable && mode === Mode.DESCENDING
+      {type === HeaderType.SORT && mode === Mode.DESCENDING
         ? " ↓"
         : mode === Mode.ASCENDING
         ? " ↑"

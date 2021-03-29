@@ -2,23 +2,26 @@ import React, { useState } from "react";
 import { THeader } from "./THeader";
 import { Row } from './Row';
 import { Modal } from "../Modal/Modal";
+import { UnsortButton } from "../TopController/UnsortButton";
+import { MultiSelect } from "../Modal/MultiSelect";
 
 interface MainProps {
   displayList: any;
 }
 
-type Header = [string, boolean, "center" | "left" | "right" | "justify"]
+type Header = 
+[string, "center" | "left" | "right" | "justify", "sort" | "multiselect" | "normal"];
 
 export const Main = ({ displayList }: MainProps) => {
   const [modalOn, setModalOn] = useState(false);
   const [selectedRow, setSelectedRow] = useState(0);
 
   const headers: Header[] = [
-    ["#", false, "center"],
-    ["Visual Novel", false, "left"],
-    ["Status", false, "center"],  
-    ["Vote", true, "center"],
-    ["View", false, "center"],
+    ["#", "center", "normal"],
+    ["Visual Novel", "left", "normal"],
+    ["Status", "center", "multiselect"],  
+    ["Vote", "center", "sort"],
+    ["View", "center", "normal"],
   ];
 
   const onSelectRow = (idx: number) => {
@@ -31,8 +34,12 @@ export const Main = ({ displayList }: MainProps) => {
       <thead>
         <tr>
           {headers.map((header) => (
-            <THeader sortable={header[1]} align={header[2]}>
-              {header[0]}
+            <THeader align={header[1]} type={header[2]} >
+              {header[0] === "Status" ? 
+                <div>
+                  <MultiSelect/>
+                </div>
+              : header[0]}
             </THeader>
           ))}
 
