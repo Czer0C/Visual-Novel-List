@@ -99,19 +99,25 @@ export const Row = ({ data, index, selectedRow, toggleModal }: RowProps) => {
           </div>
         </div>
       </td>
+      <td className="w-24 py-4 border-b border-gray-200 bg-white text-sm text-center">
+        <p className="text-gray-900 whitespace-no-wrap">
+          {released}
+        </p>
+      </td>
+      
+      <td className="w-24 px-4 py-4 border-b border-gray-200 bg-white text-sm text-center">
+        {vote}
+      </td>
       
       <td className="w-24 px-4 py-4 border-b border-gray-200 bg-white text-sm text-center">
         <span
-          className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+          className={`px-3 inline-flex text-xs leading-6 font-semibold rounded-md
           bg-${colorMapping[status - 1]}-100 text-${
             colorMapping[status - 1]
           }-800`}
         >
           {statusMapping[status - 1]}
         </span>
-      </td>
-      <td className="w-24 px-4 py-4 border-b border-gray-200 bg-white text-sm text-center">
-        {vote}
       </td>
       <td className="w-24 px-4 py-4 border-b border-gray-200 bg-white text-sm text-center">
         {status !== 1 ? (

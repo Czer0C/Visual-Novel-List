@@ -27,7 +27,7 @@ export const THeader = ({ children, align, type }: THeaderProps) => {
       className={`px-4 py-4 bg-white text-${align || "center"} 
       border-b border-gray-200 transition-colors ease-in  text-gray-800 
       text-sm uppercase font-bold
-                    ${'w-52'}
+                    ${'w-60'}
                     ${type === HeaderType.SORT && `hover:border-gray-600 cursor-pointer `} 
                     ${mode && `border-gray-600`}
                 `}

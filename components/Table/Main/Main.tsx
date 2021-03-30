@@ -19,8 +19,9 @@ export const Main = ({ displayList }: MainProps) => {
   const headers: Header[] = [
     ["#", "center", "normal"],
     ["Visual Novel", "left", "normal"],
-    ["Status", "center", "multiselect"],  
+    ["Released", "center", "sort"],  
     ["Vote", "center", "sort"],
+    ["Status", "center", "multiselect"],  
     ["View", "center", "normal"],
   ];
 

@@ -6,6 +6,7 @@ const options = [
   { value: "ocean", label: 'Dropped', color: "red" },
   { value: "blue", label:  'Finished', color: "green" },
   { value: "purple", label: 'Stalled', color: "yellow" },
+  { value: "gray", label: 'All', color: "gray" },
 ];
 
 const dot = (color = 'gray') => ({
@@ -59,8 +60,11 @@ const colourStyles = {
 
 export const MultiSelect = () => {
     const [color, setColor] = useState('gray');
+    
     const handleChange = (value: any, actionMeta: ActionMeta<any>) => {
-       setColor(value.color);
+        if (actionMeta.action === 'clear') {
+            
+        } else setColor(value.color);
     }
 
         return (
@@ -70,7 +74,7 @@ export const MultiSelect = () => {
       
       
       className={
-        `text-xs transform -translate-x-8 translate-y-2.5 font-bold fixed text-${color}-600 z-20 inline-block`
+        `text-xs transform -translate-x-8 translate-y-2.5 font-bold absolute text-${color}-600 z-20 inline-block`
       }
       
       
@@ -84,7 +88,7 @@ export const MultiSelect = () => {
         label="Single select"
         options={options}
         styles={colourStyles}
-        isClearable={true}
+        
         onChange={handleChange}
       />
     </form>
