@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { THeader } from "./THeader";
 import { Row } from './Row';
 import { Modal } from "../Modal/Modal";
@@ -15,6 +15,9 @@ type Header =
 export const Main = ({ displayList }: MainProps) => {
   const [modalOn, setModalOn] = useState(false);
   const [selectedRow, setSelectedRow] = useState(0);
+
+
+
 
   const headers: Header[] = [
     ["#", "center", "normal"],
@@ -94,13 +97,15 @@ export const Main = ({ displayList }: MainProps) => {
             />
           ))
         }
-      </tbody>
-      <Modal
+        
+        <Modal
           isVisible={modalOn}
           details={displayList[selectedRow]}
           selected={selectedRow}
           toggleModal={() => setModalOn(false)}
         />
+      </tbody>
+      
     </table>
   );
 };

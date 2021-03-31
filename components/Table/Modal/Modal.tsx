@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, KeyboardEvent, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Tippy from "@tippyjs/react";
@@ -19,6 +19,18 @@ interface ModalProps {
 
 export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
   const { vote, added, voted, status, notes } = details;
+  const esc = useKeyPress('Escape');
+  if (esc) {
+    toggleModal();
+  }
+
+
+  useLayoutEffect(() => {
+    document.body.style.overflow = isVisible ? 'hidden' : "unset";
+  }, [isVisible])
+
+
+
   const {
     description,
     image,
@@ -70,7 +82,6 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
         aria-labelledby="dialog-1-title"
         role="dialog"
         aria-modal="true"
-        // onClick={toggleModal}
       >
         <div className="flex items-end justify-center pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <div
@@ -266,4 +277,39 @@ function parseStatusColor(status: number) {
     case 6:
       return "indigo";
   }
+}
+
+function useKeyPress(targetKey: string) {
+  // State for keeping track of whether key is pressed
+  const [keyPressed, setKeyPressed] = useState(false);
+
+  // If pressed key is our target key then set to true
+  interface HandlerProps {
+    key: string
+  }
+  function downHandler({key}: HandlerProps) {
+    if (key === targetKey) {
+      setKeyPressed(true);
+    }
+  }
+
+  // If released key is our target key then set to false
+  const upHandler = ({ key }: HandlerProps) => {
+    if (key === targetKey) {
+      setKeyPressed(false);
+    }
+  };
+
+  // Add event listeners
+  useEffect(() => {
+    window.addEventListener('keydown', downHandler);
+    window.addEventListener('keyup', upHandler);
+    // Remove event listeners on cleanup
+    return () => {
+      window.removeEventListener('keydown', downHandler);
+      window.removeEventListener('keyup', upHandler);
+    };
+  }, []); // Empty array ensures that effect is only run on mount and unmount
+
+  return keyPressed;
 }
