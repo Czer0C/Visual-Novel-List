@@ -93,22 +93,22 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
               <div className="col-span-2 ml-auto">
                 <img className="py-2 max-h-80"   src={image} />
               </div>
-              <h1 className="ml-16 text-4xl text-green-400 text-center col-span-4 font-semibold ">
+              <h1 className="text-5xl -m-5 leading-normal text-green-400 text-center col-span-4 font-semibold ">
                 {title}
                 {original && (
-                  <h3 className="text-2xl mt-3 text-green-200 font-semibold">
+                  <h3 className="text-3xl mt-5 mb-5 text-green-200 font-semibold">
                     {original}
                   </h3>
                 )}
-                <p className="text-base mt-3 font-semibold text-gray-500">
+                <p className="text-lg font-mono mt-3 font-medium text-gray-600">
                   Released on {released}
                 </p>
-                <p className="text-base mt-3 font-semibold text-gray-500">
+                <p className="text-lg font-mono mt-3 font-medium text-gray-600">
                   {parseLength(length)}
                 </p>
               </h1>
 
-              <div className="mr-auto shadow-lg rounded-2xl col-span-2 w-48  bg-white dark:bg-gray-800">
+              <div className=" shadow-lg rounded-2xl col-span-2 w-56  bg-white dark:bg-gray-800">
                 <div className="flex items-center"></div>
                 <div className="flex flex-row">
                   <div className="single-chart ml-auto">
@@ -128,10 +128,11 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
                       />
                       <text
                         x="18"
-                        y="20.35"
-                        fontFamily="sans-serif"
-                        fill="green"
-                        fontSize="0.5em"
+                        y="22"
+                        fontFamily={` ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`}
+                        fill="#6EE7B7"
+                        fontSize="0.75em"
+                        fontWeight="600"
                         textAnchor="middle"
                       >
                         {vote}
@@ -140,7 +141,7 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
                   </div>
                 </div>
                 <span
-                  className={`px-4 ml-16 text-xs leading-5 font-semibold rounded-full 
+                  className={`px-4 py-1 ml-16 leading-10 font-mono font-medium rounded-full 
                               bg-${parseStatusColor(status)}-300 
                               text-${parseStatusColor(status)}-800`}
                 >
@@ -155,10 +156,10 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
                   <div className="">
                     <dl>
                       <div className="bg-gray-400 px-4 py-3 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6">
-                        <dt className=" font-medium text-black text-lg text-right mr-20 content-center">
+                        <dt className="text-black text-xl font-sans font-medium text-right mr-20 content-center">
                           Synopsis
                         </dt>
-                        <dd className="mt-1  text-gray-900 sm:mt-0 sm:col-span-3">
+                        <dd className="mt-1 text-lg leading-7  text-gray-900 sm:mt-0 sm:col-span-3">
                           {description.slice(0, 500)}
                           {description.length > 500 ? (
                             <Tippy content="Read more on VNDB">
@@ -180,13 +181,13 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
                           status
                         )}-100 px-4 py-3 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6`}
                       >
-                        <dt className="textg text-lg  text-right mr-20 font-medium text-indigo-800 content-center">
+                        <dt className="text-xl font-sans font-medium  text-right mr-20 text-indigo-800 content-center">
                           Some Thoughts
                           <p className="font-semibold mt-8">
                             Voted on {voted}
                           </p>
                         </dt>
-                        <dd className="mt-1 text-indigo-600 sm:mt-0 sm:col-span-3 items-center">
+                        <dd className="mt-1 text-lg leading-7 text-indigo-600 sm:mt-0 sm:col-span-3 items-center">
                           {notes}
                         </dd>
                       </div>

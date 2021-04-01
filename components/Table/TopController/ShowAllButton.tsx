@@ -12,9 +12,9 @@ export const ShowAllButton = ({ displayAll, showAll, disabled }: ShowAllButtonPr
   return (
     <Button
       className={`
-            flex-shrink-0 px-4 py-2.5 text-base font-semibold ml-12
+            flex-shrink-0 px-4 py-2.5 font-semibold ml-12
           text-white rounded-lg shadow-lg text-center transform 
-             transition duration-200 ease-in-out 
+             transition duration-200 ease-in-out font-sans text-lg
             
             ${disabled && 'cursor-not-allowed bg-indigo-400'}
             ${!disabled && showAll ? 

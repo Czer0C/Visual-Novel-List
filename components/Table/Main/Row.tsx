@@ -17,11 +17,11 @@ const statusMapping = [
 ];
 
 const colorMapping = [
-  "purple", 
-  "green", 
-  "yellow", 
-  "red", 
-  "indigo", 
+  "purple",
+  "green",
+  "yellow",
+  "red",
+  "indigo",
   "purple"
 ];
 
@@ -59,13 +59,12 @@ export const Row = ({ data, index, selectedRow, toggleModal }: RowProps) => {
 
   return (
     <tr
-      className={`main-row select-none cursor-pointer rounded-md ${
-        selectedRow === index && "selected-row"
-      }`}
+      className={`main-row select-none cursor-pointer rounded-md ${selectedRow === index && "selected-row"
+        }`}
       onClick={toggleModal}
     >
       <td className="w-24 py-4 border-b border-gray-200 bg-white text-sm text-center">
-        <p className="text-gray-900 whitespace-no-wrap">
+        <p className="text-gray-600 whitespace-no-wrap">
           {index + 1}
         </p>
       </td>
@@ -82,7 +81,7 @@ export const Row = ({ data, index, selectedRow, toggleModal }: RowProps) => {
             </a>
           </div>
           <div className="ml-4">
-            <div className="text-sm  font-medium text-gray-900 max-w-xs overflow-hidden whitespace-nowrap overflow-ellipsis" >
+            <div className="text-lg leading-normal font-extralight text-gray-700 max-w-xs overflow-hidden whitespace-nowrap overflow-ellipsis" >
               {title}
 
               <Tippy content="View on VNDB">
@@ -99,22 +98,21 @@ export const Row = ({ data, index, selectedRow, toggleModal }: RowProps) => {
           </div>
         </div>
       </td>
-      <td className="w-24 py-4 border-b border-gray-200 bg-white text-sm text-center">
-        <p className="text-gray-900 whitespace-no-wrap">
+      <td className="w-24 py-4 border-b border-gray-200 bg-white font-mono text-center">
+        <p className="text-gray-600 whitespace-no-wrap">
           {released}
         </p>
       </td>
-      
-      <td className="w-24 px-4 py-4 border-b border-gray-200 bg-white text-sm text-center">
+
+      <td className="w-24 px-4 py-4 border-b  text-gray-700 border-gray-200 bg-white  font-mono text-center">
         {vote}
       </td>
-      
+
       <td className="w-24 px-4 py-4 border-b border-gray-200 bg-white text-sm text-center">
         <span
-          className={`px-3 inline-flex text-xs leading-6 font-semibold rounded-md
-          bg-${colorMapping[status - 1]}-100 text-${
-            colorMapping[status - 1]
-          }-800`}
+          className={`px-3 inline-flex text-xs leading-6 font-mono font-extralight rounded-md
+          bg-${colorMapping[status - 1]}-100 text-${colorMapping[status - 1]
+            }-700`}
         >
           {statusMapping[status - 1]}
         </span>
@@ -122,7 +120,7 @@ export const Row = ({ data, index, selectedRow, toggleModal }: RowProps) => {
       <td className="w-24 px-4 py-4 border-b border-gray-200 bg-white text-sm text-center">
         {status !== 1 ? (
           <Link href="javascript:void(0)" >
-            <a className="text-indigo-600 hover:text-indigo-900 text-center pointer-events-none">
+            <a className="text-indigo-600 hover:text-indigo-900 font-mono text-center pointer-events-none">
               Detail
             </a>
           </Link>
