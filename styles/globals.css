@@ -29,7 +29,7 @@ body {
   background-attachment: fixed;
   padding: 0;
   margin: 0;
-  
+
   font-family: freight-display-pro, serif;
 
   line-height: 1.5;
@@ -45,12 +45,12 @@ h3,
 h4,
 h5,
 h6 {
-  
+
   /* font-family: freight-sans-pro,Helvetica Neue,sans-serif; */
   font-family: 'Libre Baskerville', 'Open Sans', sans-serif;
 
-  
-  
+
+
 }
 
 a {
@@ -122,8 +122,6 @@ a {
 }
 
 
-
-
 .circular-chart {
   display: block;
   margin: 10px auto;
@@ -178,5 +176,6 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb {
   border-radius: 1em;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-  background-color: #4f29d6;
+
+  background-image: linear-gradient(to top, #37ecba 0%, #72afd3 100%);
 }
