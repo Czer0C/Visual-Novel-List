@@ -82,10 +82,17 @@ a {
   align-items: center;
 }
 
+
+.main-row>* {
+  transition: all 0.2s 0.1s ease-in-out;
+
+}
+
 .main-row:hover>*,
 .selected-row>* {
   background-color: #BFDBFE;
   opacity: 1;
+
 }
 
 .main-table {
@@ -178,4 +185,25 @@ body::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
 
   background-image: linear-gradient(to top, #37ecba 0%, #72afd3 100%);
+}
+
+th>svg {
+  display: inline;
+  transition: all 0.5s 0.25s;
+  transform: rotate(0);
+}
+
+.header-ascending>svg {
+  opacity: 1;
+  transform: rotate(90deg);
+
+}
+
+.header-descending>svg {
+  opacity: 1;
+  transform: rotate(-90deg);
+}
+
+.header-unsorted>svg {
+  opacity: 0;
 }

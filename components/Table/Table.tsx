@@ -92,7 +92,7 @@ export const Table = ({ fullList }: TableProps) => {
                 <div className="inline-block min-w-full rounded-lg overflow-hidden">
                   {/* //? Top Controllers */}
                   <div
-                    className="px-5 opacity-95 bg-white py-5 
+                    className="px-5 bg-white py-5 
                   flex flex-row xs:flex-row justify-between 
                   items-center xs:justify-between"
                   >
@@ -114,7 +114,7 @@ export const Table = ({ fullList }: TableProps) => {
                   {displayList && displayList.length ? (
                     <Main displayList={displayList} />
                   ) : (
-                    <div className=" opacity-90 py-4 border-gray-200 bg-white text-sm text-center">
+                    <div className="py-4 border-gray-200 bg-white text-sm text-center">
                       <span
                         className="px-5 inline-flex text-xl leading-10 font-semibold rounded-full 
                           bg-red-100 text-red-800"

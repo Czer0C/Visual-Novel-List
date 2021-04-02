@@ -6,6 +6,7 @@ import "tippy.js/dist/tippy.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import { Detail } from "@components/icons/Detail";
 
 const statusMapping = [
   "Playing",
@@ -120,10 +121,16 @@ export const Row = ({ data, index, selectedRow, toggleModal }: RowProps) => {
       <td className="w-24 px-4 py-4 border-b border-gray-200 bg-white text-sm text-center">
         {status !== 1 ? (
           <Link href="javascript:void(0)" >
-            <a className="text-indigo-600 hover:text-indigo-900 font-mono text-center pointer-events-none">
-              Detail
-            </a>
+            <Tippy moveTransition="transform 2s ease-out" content="View Detail">
+              <span className="">
+                <a className="text-indigo-600 
+                 text-center">
+                  <Detail />
+                </a>
+              </span>
+            </Tippy>
           </Link>
+
         ) : null}
       </td>
     </tr>
