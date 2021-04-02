@@ -17,6 +17,16 @@ export const Main = ({ displayList }: MainProps) => {
   const [selectedRow, setSelectedRow] = useState(0);
 
 
+const toggleModal = () => {
+  setModalOn(!modalOn);
+  const hideLabel = document.getElementById('status-select');
+  console.log({
+    hideLabel
+  })
+  if (hideLabel) {
+    hideLabel.style.display = modalOn ? 'inline-block' : 'none';
+  }
+}
 
 
   const headers: Header[] = [
@@ -93,7 +103,7 @@ export const Main = ({ displayList }: MainProps) => {
               data={row}
               index={index}
               selectedRow={modalOn && selectedRow}
-              toggleModal={() => onSelectRow(index)}
+              toggleModal={() => {onSelectRow(index); toggleModal()}}
             />
           ))
         }
@@ -102,7 +112,7 @@ export const Main = ({ displayList }: MainProps) => {
           isVisible={modalOn}
           details={displayList[selectedRow]}
           selected={selectedRow}
-          toggleModal={() => setModalOn(false)}
+          toggleModal={toggleModal}
         />
       </tbody>
       

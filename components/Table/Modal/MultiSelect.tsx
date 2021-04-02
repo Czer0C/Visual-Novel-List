@@ -84,7 +84,7 @@ export const MultiSelect = () => {
                 }
 
 
-                id="aria-label" htmlFor="aria-example-input">
+                id="status-select" htmlFor="aria-example-input">
                 Status
       </label>
 
