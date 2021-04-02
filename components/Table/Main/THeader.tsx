@@ -1,3 +1,6 @@
+
+import { ArrowDown } from "@components/icons/ArrowDown";
+import { ArrowUp } from "@components/icons/ArrowUp";
 import React, { useState } from "react";
 
 interface THeaderProps {
@@ -8,8 +11,8 @@ interface THeaderProps {
 
 enum Mode {
   UNSORTED = 0,
-  ASCENDING = 1,
-  DESCENDING = 2,
+  ASCENDING = 2,
+  DESCENDING = 1  ,
 }
 
 enum HeaderType {
@@ -20,7 +23,7 @@ enum HeaderType {
 
 export const THeader = ({ children, align, type }: THeaderProps) => {
   const [mode, setMode] = useState(Mode.UNSORTED);
-  console.log({type})
+  console.log({ type })
   return (
     <th
       scope="col"
@@ -30,15 +33,16 @@ export const THeader = ({ children, align, type }: THeaderProps) => {
                     ${'w-60'}
                     ${type === HeaderType.SORT && `hover:border-gray-600 cursor-pointer `} 
                     ${mode && `border-gray-600`}
+                    header-${Mode[mode].toLowerCase()}
                 `}
       onClick={() => setMode(((mode + 1) % 3) * (type === HeaderType.SORT ? 1 : 0))}
     >
       {children}
-      {type === HeaderType.SORT && mode === Mode.DESCENDING
-        ? " ↓"
-        : mode === Mode.ASCENDING
-        ? " ↑"
-        : ""}
+      {type === HeaderType.SORT  && <ArrowUp/>}
+
+      {/* <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+        <path d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z" />
+      </svg> */}
 
     </th>
   );
