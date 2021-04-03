@@ -1,47 +1,82 @@
-
 import { ArrowBack } from "@components/icons/ArrowBack";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface THeaderProps {
   children: any;
   align?: "center" | "left" | "right" | "justify";
   type: "sort" | "multiselect" | "normal";
+  attribute: string;
+  headerHandler: (filterType: string, value: string, context: string) => void;
+  active: boolean;
+  onSelect: (header: string) => void;
 }
 
 enum Mode {
   UNSORTED = 0,
-  ASCENDING = 2,
   DESCENDING = 1,
+  ASCENDING = 2,
 }
 
 enum HeaderType {
   SORT = "sort",
   MULTISELECT = "multiselect",
-  NORMAL = "normal"
+  NORMAL = "normal",
 }
 
-export const THeader = ({ children, align, type }: THeaderProps) => {
+export const THeader = ({
+  children,
+  align,
+  type,
+  headerHandler,
+  attribute,
+  onSelect,
+  active,
+}: THeaderProps) => {
   const [mode, setMode] = useState(Mode.UNSORTED);
-  console.log({ type })
+
+  useEffect(()  => {
+    if (!active) {
+      setMode(Mode.UNSORTED)
+    }
+  })
+
+  const headerClick = () => {
+    if (type === HeaderType.NORMAL) {
+      return;
+    }
+
+    // ! One step ahead of the list
+    const context =
+      mode === 0 ? "descending" : mode === 1 ? "ascending" : "clear";
+    onSelect(attribute);
+    headerHandler(type, attribute, context);
+    updateHeaderIcon();
+  };
+
+  const updateHeaderIcon = () => {
+    if (type === HeaderType.SORT) {
+      const nextMode = (mode + 1) % 3;
+      setMode(nextMode);
+    }
+  };
+
   return (
     <th
       scope="col"
       className={`px-1 py-4 bg-white text-${align || "center"} 
         transition-all delay-100 ease-in-out  text-gray-800 
        uppercase font-bold text-base font-serif border-b border-white
-                    ${'w-96'}
-                    ${type === HeaderType.SORT && `hover:border-gray-600 cursor-pointer `} 
-                    ${mode && `border-gray-600`}
+                    ${"w-96"}
+                    ${
+                      type === HeaderType.SORT &&
+                      `hover:border-gray-600 cursor-pointer `
+                    } 
+                    ${mode && active && `border-gray-600`}
                     header-${Mode[mode].toLowerCase()}
                 `}
-      onClick={() => setMode(((mode + 1) % 3) * (type === HeaderType.SORT ? 1 : 0))}
+      onClick={headerClick}
     >
       {children} {type === HeaderType.SORT && <ArrowBack />}
-
-      {/* <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
-        <path d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z" />
-      </svg> */}
-
     </th>
   );
 };
