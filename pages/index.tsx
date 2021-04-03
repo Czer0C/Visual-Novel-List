@@ -88,7 +88,7 @@ const joinAndClean = (uList: VNInUserList[], vns: VisualNovel[]) => {
       ...formatedBase,
       status: base.labels[0].id,
       vote: base.vote / 10 || -1,
-      voted: base.voted ? moment(base.voted * 1000).format("MM/DD/YYYY") : "Unrated",
+      voted: base.voted ? moment(base.voted * 1000).format("MM/DD/YYYY") : "-",
       vn: formatedVN,
     };
   });

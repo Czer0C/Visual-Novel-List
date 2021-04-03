@@ -106,7 +106,7 @@ export const Row = ({ data, index, selectedRow, toggleModal }: RowProps) => {
       </td>
 
       <td className="w-24 px-4 py-4 border-b  text-gray-700 border-gray-200 bg-white  font-mono text-center">
-        {vote === -1 ? 'Unrated' : vote}
+        {vote === -1 ? '-' : vote}
       </td>
 
       <td className="w-24 px-4 py-4 border-b border-gray-200 bg-white text-sm text-center">

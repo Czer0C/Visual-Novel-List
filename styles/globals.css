@@ -94,44 +94,19 @@ a {
 
 }
 
-
-.main-modal  {
-  /* transition: all .5s ease-in-out; */
-
-  /* opacity: 1;
-  transition: opacity 1s, height 0; */
-
-
-  overflow:hidden;
-  background:#000;
-  color:#fff;
-  height:0;
-  padding: 0 18px;
-  width:100px;
-  -webkit-transition: all .5s ease;
-  -moz-transition: all .5s ease;
-  transition: all .5s ease;
-}
-
-.show {
+.main-modal {
+  animation: fadeInUp 1s;
   
-  height:auto;
-  padding: 24px 18px;
-
+  /* visibility: visible;
+  opacity: 1;
+  transition: opacity 2s linear,  visibility 0s; */
 }
+
+
 
 .hidden {
-  /* transform:translate(9999px);
-  animation: fadeOutDown 1s; */
+  opacity: 0;  
 
-  
-  opacity: 0;
-  transition: opacity 1s, height 0s 1s;
-  height: 0;
-}
-
-.hidden {
-  display: none;
 }
 
 #skeleton {
@@ -152,9 +127,12 @@ a {
 
 
 @keyframes fadeOutDown {
-  0%, 100% {
+
+  0%,
+  100% {
     height: auto;
   }
+
   0% {
     opacity: 1;
     transform: translateY(0%);
@@ -180,23 +158,18 @@ a {
   stroke-width: 3.8;
 }
 
-.circle {
-  fill: none;
-  stroke-width: 2.8;
-  stroke-linecap: round;
-  animation: progress 1s ease-out forwards;
-  animation-delay: 1s;
+.CircularProgressbar-path  {
+  animation: progress 1.25s ease-in-out forwards;
 }
 
 @keyframes progress {
+
   0% {
     stroke-dasharray: 0 100;
   }
+
 }
 
-.circular-chart.orange .circle {
-  stroke: #ff9f00;
-}
 
 .percentage {
   fill: #666;
