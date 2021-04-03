@@ -26,9 +26,9 @@ export const Main = ({ displayList, headerHandler }: MainProps) => {
     if (modal) {
       if (!modalOn) {
         modal.classList.add('show');
-        modal.classList.remove('hidden');
+        //modal.classList.remove('hidden');
       } else {
-        modal.classList.add('hidden');
+        //modal.classList.add('hidden');
         modal.classList.remove('show');
 
       }

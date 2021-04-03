@@ -54,7 +54,7 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
 
   return (
       <div
-        className={`main-modal hidden fixed  inset-0 opacity-100 mt-5 overflow-auto`}
+        className={`main-modal fixed  inset-0 opacity-100 mt-5 overflow-auto`}
         aria-labelledby="dialog-1-title"
         role="dialog"
         aria-modal="true"
