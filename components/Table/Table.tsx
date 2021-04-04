@@ -132,8 +132,9 @@ export const Table = ({ fullList }: TableProps) => {
                         const filteredList = fullList.filter(entry => statuses[entry.status] === context)
                         setProcessedList(filteredList);
                         setDisplayingData(
-                            filteredList.slice(currentPage * 10, (currentPage + 1) * 10)
+                            filteredList.slice(0, 10)
                         );
+                        setCurrentPage(0)
                     }
 
                     return;
