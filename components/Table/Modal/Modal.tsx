@@ -18,11 +18,11 @@ interface ModalProps {
 
 export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
   const { vote, added, voted, status, notes } = details;
-
+  
   useEscape(toggleModal);
 
   useLayoutEffect(() => {
-    document.body.style.overflow = isVisible ? 'hidden' : "unset";
+    document.body.style.overflow = !isVisible ? 'hidden' : "unset";
   }, [isVisible])
 
   const {
@@ -214,7 +214,6 @@ function parseStatus(status: number) {
 }
 
 function parseStatusColor(status: number) {
-  console.log(status);
   switch (status) {
     case 1:
       return "purple";
@@ -245,5 +244,6 @@ const useEscape = (toggleModal: () => void) => {
 
     window.addEventListener('keydown', downHandler);
 
+    return () => window.removeEventListener('keydown', downHandler);
   })
 }

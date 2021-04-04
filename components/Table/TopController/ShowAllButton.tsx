@@ -8,7 +8,6 @@ interface ShowAllButtonProps {
 }
 
 export const ShowAllButton = ({ displayAll, showAll, disabled }: ShowAllButtonProps) => {
-  console.log(`full list, `, { disabled })
   return (
     <Button
       className={`

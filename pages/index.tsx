@@ -7,7 +7,7 @@ const userID = `131608`;
 const limit = 100; // ! Maximum number of item per request (though I doubt I'd ever gonna read this many VN)
 
 interface HomeProps {
-  fullList: object[]
+  fullList: any[]
 }
 
 const Home = ({ fullList }: HomeProps) => {

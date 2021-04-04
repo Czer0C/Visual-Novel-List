@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { THeader } from "./THeader";
 import { Row } from "./Row";
 import { Modal } from "../Modal/Modal";
@@ -16,34 +16,30 @@ type Header = [string, Align, FilterType];
 
 export const Main = ({ displayList, headerHandler }: MainProps) => {
   const [modalOn, setModalOn] = useState(false);
-  const [selectedRow, setSelectedRow] = useState(0);
   const [activeSort, setActiveSort] = useState("");
 
-  const toggleModal = () => {
-    
-    const modal = document.getElementById('main-modal');
-    
-    if (modal) {
-      if (!modalOn) {
-        modal.classList.remove('hidden');
-        //modal.classList.add('show');
+  const [selectedRow, setSelectedRow] = useState(-1);
 
+  const toggleModal = () => {
+    const modal = document.getElementById('main-modal');
+
+    if (modal) {
+      if (modalOn) {
+        modal.classList.remove('hidden');
 
       } else {
         modal.classList.add('hidden');
-        //modal.classList.remove('show');
-
       }
-      
     }
-    
+
     const hideLabel = document.getElementById("status-select");
-    
+
     if (hideLabel) {
-      hideLabel.style.display = modalOn ? "inline-block" : "none";
+      hideLabel.style.display = !modalOn ? "inline-block" : "none";
     }
-    
-    setModalOn(!modalOn);
+
+    setModalOn(() => !modalOn);
+
 
   };
 
@@ -56,14 +52,18 @@ export const Main = ({ displayList, headerHandler }: MainProps) => {
     ["View", "center", "normal"],
   ];
 
-  const onSelectRow = (idx: number) => {
-    setSelectedRow(() => idx);
-    setModalOn(() => true);
-  };
+  const selectHandler = async (index: number) => {
+    setSelectedRow(() => index)
+  }
 
   const selectSort = (header: string) => {
     setActiveSort(header);
-      };
+  };
+
+  useEffect(() => {
+    toggleModal();
+  }, [selectedRow])
+
 
   return (
     <table className="min-w-full max-w-7xl leading-normal main-table">
@@ -96,19 +96,17 @@ export const Main = ({ displayList, headerHandler }: MainProps) => {
             key={`Row-${index}`}
             data={row}
             index={index}
-            selectedRow={modalOn ? selectedRow : -1}
-            toggleModal={() => {
-              onSelectRow(index);
-              toggleModal();
-            }}
+            onSelect={selectHandler}
           />
         ))}
 
-        <Modal
-          isVisible={modalOn}
-          details={displayList[selectedRow]}
-          toggleModal={toggleModal}
-        />
+        {
+          displayList[selectedRow] && <Modal
+            isVisible={modalOn}
+            details={displayList[selectedRow]}
+            toggleModal={toggleModal}
+          />
+        }
       </tbody>
     </table>
   );

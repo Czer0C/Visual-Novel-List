@@ -29,8 +29,7 @@ const colorMapping = [
 interface RowProps {
   data: Entry,
   index: number,
-  selectedRow: number,
-  toggleModal: () => void
+  onSelect: (index: number) => void
 }
 
 type Entry = {
@@ -45,7 +44,7 @@ type VisualNovel = {
   [name: string]: any
 }
 
-export const Row = ({ data, index, selectedRow, toggleModal }: RowProps) => {
+export const Row = ({ data, index, onSelect }: RowProps) => {
   const { vote, voted, status } = data;
   const {
     description,
@@ -57,12 +56,12 @@ export const Row = ({ data, index, selectedRow, toggleModal }: RowProps) => {
     released,
     id,
   } = data.vn;
-
   return (
     <tr
-      className={`main-row select-none cursor-pointer rounded-md ${selectedRow === index && "selected-row"
-        }`}
-      onClick={toggleModal}
+      className={`main-row select-none cursor-pointer rounded-md 
+      `
+    }
+      onClick={() => onSelect(index)}
     >
       <td className="w-24 py-4 border-b border-gray-200 bg-white text-sm text-center">
         <p className="text-gray-600 whitespace-no-wrap">
