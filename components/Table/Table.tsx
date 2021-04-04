@@ -20,6 +20,8 @@ export const Table = ({ fullList }: TableProps) => {
     const [currentPage, setCurrentPage] = useState(0);
     const pages = Math.ceil(processedList.length / 10);
 
+    const [reset, setReset] = useState(false);
+
     const handleFilter = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         const keyword: string = event.target.value.toLowerCase();
@@ -76,10 +78,7 @@ export const Table = ({ fullList }: TableProps) => {
         context: string
     ) => {
         // const properties = Object.keys(fullList[0]);
-
         const properties = ["notes", "vn", "voted", "vote", "status"];
-
-
 
         type entry = {
             notes: string;
@@ -92,46 +91,7 @@ export const Table = ({ fullList }: TableProps) => {
         if (context === "clear" || context === 'All') {
             setProcessedList(fullList);
             setDisplayingData(fullList.slice(currentPage * 10, (currentPage + 1) * 10));
-
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-            // !CLEAR HEADER
-
+            setReset(true);
         } else {
             switch (value) {
                 case "Vote": {

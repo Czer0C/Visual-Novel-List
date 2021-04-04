@@ -2,15 +2,12 @@ import React, { useState } from "react";
 import Select, { ActionMeta } from "react-select";
 import chroma from "chroma-js";
 
-const statuses = ["All", "Playing", "Finished", "Stalled", "Dropped", "wishlist", "Blacklist"];
-
-
 const options = [
-    { value: "ocean", label: "All", color: "red" },
-    { value: "blue", label: "Playing", color: "green" },
-    { value: "purple", label: "Finished", color: "yellow" },
-    { value: "gray", label: "Stalled", color: "indigo" },
-    { value: "gray", label: "Dropped", color: "blue" },
+    { value: "All", label: "All 🌌", color: "#9CA3AF" },
+    { value: "Playing", label: "Playing 🎵", color: "#818CF8" },
+    { value: "Finished", label: "Finished ✅", color: "#34D399" },
+    { value: "Stalled", label: "Stalled 🟨", color: "#FBBF24" },
+    { value: "Dropped", label: "Dropped ❌", color: "#F87171" },
 ];
 
 const dot = (color = "gray") => ({
@@ -21,22 +18,36 @@ const dot = (color = "gray") => ({
         borderRadius: 10,
         content: '" "',
         display: "block",
-        marginRight: 8,
-        height: 10,
-        width: 10,
+        marginRight: 10,
+        marginTop: -2,
+        height: 8,
+        width: 8,
     },
 });
 
+interface OptionProps {
+    data: any,
+    isDisabled: boolean,
+    isFocused: boolean,
+    isSelected: boolean
+}
+
 const colourStyles = {
-    control: (styles) => ({
+    control: (styles: any) => ({
         ...styles,
         backgroundColor: "white",
         width: "135px",
     }),
-    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+    option: (styles: any, { data, isDisabled, isFocused, isSelected }: OptionProps) => {
         const color = chroma(data.color);
         return {
             ...styles,
+            height: "2em",
+            fontSize: "0.75rem",
+            marginTop: "0.25em",
+            alignItems: "center",
+            justifyContent: "center",
+            display: "flex",
             backgroundColor: isDisabled
                 ? null
                 : isSelected
@@ -60,11 +71,11 @@ const colourStyles = {
             },
         };
     },
-    input: (styles) => ({ ...styles, ...dot() }),
-    singleValue: (styles, { data }) => ({
+    input: (styles: any) => ({ ...styles, ...dot() }),
+    singleValue: (styles: any, { data }: any) => ({
         ...styles,
         ...dot(data.color),
-        color: "white",
+        color: "transparent",
         fontSize: "0px",
     }),
 };
@@ -72,39 +83,38 @@ const colourStyles = {
 interface MultiSelectProps {
     headerHandler: (filterType: string,
         value: string,
-        context: string) => void
+        context: string) => void;
 }
 
 export const MultiSelect = ({ headerHandler }: MultiSelectProps) => {
     const [color, setColor] = useState("gray");
-
+    
     const handleChange = (value: any, actionMeta: ActionMeta<any>) => {
         setColor(value.color);
-
-        headerHandler('multiselect', 'Status', value.label)
+        headerHandler('multiselect', 'Status', value.value)
     };
 
     return (
         <form>
             <label
-                className={` transform -translate-x-10 translate-y-2.5
-                    
-                    absolute text-${color}-600 z-20 inline-block
-                    
+                className={` transform -translate-x-12 translate-y-2
+                    absolute text-${color}-600 z-20 
                     text-gray-800 text-sm uppercase font-bold
                     `}
                 id="status-select"
                 htmlFor="aria-example-input"
-            >
-                Status
-      </label>
+            ><span className="flex justify-center">
+                    Status
+                </span>
+            </label>
 
             <Select
-                defaultValue={options[2]}
+                defaultValue={options[0]}
                 label="Single select"
                 options={options}
                 styles={colourStyles}
                 onChange={handleChange}
+                instanceId="zzzz"
             />
         </form>
     );

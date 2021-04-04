@@ -18,7 +18,7 @@ export const Main = ({ displayList, headerHandler }: MainProps) => {
   const [modalOn, setModalOn] = useState(false);
   const [activeSort, setActiveSort] = useState("");
 
-  const [selectedRow, setSelectedRow] = useState(-1);
+  const [selectedItem, setSelectedItem] = useState({});
 
   const toggleModal = () => {
     const modal = document.getElementById('main-modal');
@@ -26,7 +26,6 @@ export const Main = ({ displayList, headerHandler }: MainProps) => {
     if (modal) {
       if (modalOn) {
         modal.classList.remove('hidden');
-
       } else {
         modal.classList.add('hidden');
       }
@@ -39,8 +38,6 @@ export const Main = ({ displayList, headerHandler }: MainProps) => {
     }
 
     setModalOn(() => !modalOn);
-
-
   };
 
   const headers: Header[] = [
@@ -53,7 +50,7 @@ export const Main = ({ displayList, headerHandler }: MainProps) => {
   ];
 
   const selectHandler = async (index: number) => {
-    setSelectedRow(() => index)
+    setSelectedItem({ ...displayList[index] });
   }
 
   const selectSort = (header: string) => {
@@ -62,52 +59,70 @@ export const Main = ({ displayList, headerHandler }: MainProps) => {
 
   useEffect(() => {
     toggleModal();
-  }, [selectedRow])
-
+  }, [selectedItem])
 
   return (
-    <table className="min-w-full max-w-7xl leading-normal main-table">
-      <thead>
-        <tr>
-          {headers.map((header) => (
-            <THeader
-              align={header[1]}
-              type={header[2]}
-              active={activeSort === header[0]}
-              onSelect={selectSort}
-              attribute={header[0]}
-              headerHandler={headerHandler}
-            >
-              {header[0] === "Status" ? (
-                <div>
-                  <MultiSelect headerHandler={headerHandler} />
-                </div>
-              ) : (
-                header[0]
-              )}
-            </THeader>
+    <>
+      <table className="min-w-full max-w-7xl leading-normal main-table">
+        <thead>
+          <tr>
+            {headers.map((header, index) => (
+              <THeader
+                align={header[1]}
+                type={header[2]}
+                active={activeSort === header[0]}
+                onSelect={selectSort}
+                attribute={header[0]}
+                headerHandler={headerHandler}
+                key={`header-${index}`}
+              >
+                {header[0] === "Status" ? (
+                  <div>
+                    <MultiSelect headerHandler={headerHandler} />
+                  </div>
+                ) : (
+                  header[0]
+                )}
+              </THeader>
+            ))}
+          </tr>
+        </thead>
+
+        <tbody>
+          {displayList.map((row: any, index: number) => (
+            <Row
+              key={`Row-${index}`}
+              data={row}
+              index={index}
+              onSelect={selectHandler}
+            />
           ))}
-        </tr>
-      </thead>
 
-      <tbody>
-        {displayList.map((row: any, index: number) => (
-          <Row
-            key={`Row-${index}`}
-            data={row}
-            index={index}
-            onSelect={selectHandler}
-          />
-        ))}
 
-        {
-          displayList[selectedRow] && <Modal
-            isVisible={modalOn}
-            details={displayList[selectedRow]}
-            toggleModal={toggleModal}
-          />
-        }
-      </tbody>
-    </table>
+        </tbody>
+
+        <tfoot>
+          <tr
+            className={`main-row select-none cursor-pointer rounded-md 
+          `
+            }
+          ><td colSpan={6} className="w-24 py-4 border-b border-gray-200 bg-white text-sm text-center">
+              <p className="text-gray-600 whitespace-no-wrap">
+                A List by CzeroC
+            </p>
+
+            </td>
+
+          </tr>
+        </tfoot>
+      </table>
+      {
+        Object.keys(selectedItem).length > 0 && <Modal
+          isVisible={modalOn}
+          details={selectedItem}
+          toggleModal={toggleModal}
+        />
+      }
+    </>
   );
 };

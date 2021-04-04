@@ -60,7 +60,7 @@ export const Row = ({ data, index, onSelect }: RowProps) => {
     <tr
       className={`main-row select-none cursor-pointer rounded-md 
       `
-    }
+      }
       onClick={() => onSelect(index)}
     >
       <td className="w-24 py-4 border-b border-gray-200 bg-white text-sm text-center">
@@ -118,16 +118,16 @@ export const Row = ({ data, index, onSelect }: RowProps) => {
         </span>
       </td>
       <td className="w-24 px-4 py-4 border-b border-gray-200 bg-white text-sm text-center">
-      <Link href="javascript:void(0)" >
-            <Tippy moveTransition="transform 2s ease-out" content="View Detail">
-              <span className="">
-                <a className="text-indigo-600 
+        <Link href="javascript:void(0)" >
+          <Tippy moveTransition="transform 2s ease-out" content="View Detail">
+            <span className="">
+              <a className="text-indigo-600 
                  text-center">
-                  <Detail />
-                </a>
-              </span>
-            </Tippy>
-          </Link>
+                <Detail />
+              </a>
+            </span>
+          </Tippy>
+        </Link>
       </td>
     </tr>
   );

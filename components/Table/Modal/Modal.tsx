@@ -9,6 +9,7 @@ import { Close } from "@components/icons/Close";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
 import 'react-circular-progressbar/dist/styles.css';
+import { CoverImage } from "./CoverImage";
 
 interface ModalProps {
   details: any;
@@ -39,12 +40,12 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
 
   const colorRating = (vote: number) => {
     return vote > 9
-      ? "#10B981"
+      ? "#34D399"
       : vote > 8
         ? "#3B82F6"
         : vote > 7
           ? "#6366F1"
-          : vote > 6
+          : vote > 5
             ? "#F59E0B"
             : vote > 0 ?
               "#EF4444" : "#6B7280";
@@ -68,14 +69,14 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
         >
           <div className="px-4 py-5 sm:grid sm:grid-cols-8  sm:gap-8 sm:px-6">
             <div className="col-span-2 ml-auto" style={{ animation: 'fadeInUp 1.5s' }}>
-              <img className="py-2 max-h-80" src={image} />
+              <CoverImage nsfw={image_nsfw} url={image} title={title} />
             </div>
-            <h1 className="text-4xl -m-5 mt-10 leading-normal text-green-400 text-center col-span-4 font-semibold " style={{ animation: 'fadeInUp 1.5s' }}>
+            <h1 className="text-5xl -m-5 mt-10 leading-normal text-green-400 text-center col-span-4 font-semibold " style={{ animation: 'fadeInUp 1.5s' }}>
               {title}
               {original && (
-                <h3 className="text-2xl mt-5 mb-5 text-green-200 font-semibold">
+                <p className="text-2xl mt-5 mb-5 text-green-200 font-semibold">
                   {original}
-                </h3>
+                </p>
               )}
               <p className="text-base font-mono mt-3 font-medium text-gray-600">
                 Released on {released}
@@ -162,9 +163,6 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
                         {notes}
                       </dd>
                     </div>
-
-
-
 
                   </dl>
                 </div>
