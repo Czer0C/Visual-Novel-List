@@ -1,8 +1,7 @@
 # Enhanced Visual Novel List from VNDB
 
-Tech stacks: NextJS ~~+ Firebase~~ + TailwindCSS
+Tech stacks: NextJS ~~+ Firebase~~ + TailwindCSS + TypeScript
 ------------
-
 
 Pretty acceptable so far.
 
