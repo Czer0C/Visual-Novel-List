@@ -1,13 +1,17 @@
-import React from 'react';
-import { Button } from '../../common/Button';
+import React from "react";
+import { Button } from "../../common/Button";
 
 interface ShowAllButtonProps {
-  displayAll: () => void
-  showAll: boolean
-  disabled: boolean
+  displayAll: () => void;
+  showAll: boolean;
+  disabled: boolean;
 }
 
-export const ShowAllButton = ({ displayAll, showAll, disabled }: ShowAllButtonProps) => {
+export const ShowAllButton = ({
+  displayAll,
+  showAll,
+  disabled,
+}: ShowAllButtonProps) => {
   return (
     <Button
       className={`
@@ -17,17 +21,19 @@ export const ShowAllButton = ({ displayAll, showAll, disabled }: ShowAllButtonPr
             text-white rounded-lg shadow-lg text-center transform 
              transition duration-200 ease-in-out font-sans text-lg
             
-            ${disabled && 'cursor-not-allowed bg-indigo-400'}
-            ${!disabled && showAll ?
-          "bg-indigo-700 hover:bg-indigo-400 hover:translate-y-1 " :
-          "bg-indigo-400 hover:bg-indigo-700 hover:translate-y-1 "}
+            ${disabled && "cursor-not-allowed bg-indigo-400"}
+            ${
+              !disabled && showAll
+                ? "bg-indigo-700 hover:bg-indigo-400 "
+                : "bg-indigo-400 hover:bg-indigo-700 "
+            }
             
             
             `}
       eventHandler={displayAll}
       disabled={disabled}
     >
-      Full List {showAll ? 'On' : 'Off'}
+      Full List {showAll ? "On" : "Off"}
     </Button>
-  )
-}
+  );
+};

@@ -65,7 +65,7 @@ export const THeader = ({
       scope="col"
       className={`px-1 py-4 bg-white text-${align || "center"} 
         transition-all delay-100 ease-in-out  text-gray-800 
-       uppercase font-bold text-base font-serif border-b border-white
+       uppercase font-bold text-base  border-b border-white
                     ${"w-96"}
                     ${
                       type === HeaderType.SORT &&

@@ -6,9 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { Close } from "@components/icons/Close";
 
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
-import 'react-circular-progressbar/dist/styles.css';
+import "react-circular-progressbar/dist/styles.css";
 import { CoverImage } from "./CoverImage";
 
 interface ModalProps {
@@ -19,12 +19,12 @@ interface ModalProps {
 
 export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
   const { vote, added, voted, status, notes } = details;
-  
+
   useEscape(toggleModal);
 
   useLayoutEffect(() => {
-    document.body.style.overflow = !isVisible ? 'hidden' : "unset";
-  }, [isVisible])
+    document.body.style.overflow = !isVisible ? "hidden" : "unset";
+  }, [isVisible]);
 
   const {
     description,
@@ -37,18 +37,18 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
     id,
   } = details.vn;
 
-
   const colorRating = (vote: number) => {
     return vote > 9
       ? "#34D399"
       : vote > 8
-        ? "#3B82F6"
-        : vote > 7
-          ? "#6366F1"
-          : vote > 5
-            ? "#F59E0B"
-            : vote > 0 ?
-              "#EF4444" : "#6B7280";
+      ? "#3B82F6"
+      : vote > 7
+      ? "#6366F1"
+      : vote > 5
+      ? "#f6e017"
+      : vote > 0
+      ? "#EF4444"
+      : "#6B7280";
   };
 
   const ratingColor = colorRating(vote);
@@ -68,55 +68,62 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
             shadow-xl transform transition-all max-w-7xl"
         >
           <div className="px-4 py-5 sm:grid sm:grid-cols-8  sm:gap-8 sm:px-6">
-            <div className="col-span-2 ml-auto" style={{ animation: 'fadeInUp 1.5s' }}>
+            <div
+              className="col-span-2 ml-auto"
+              style={{ animation: "fadeInUp 1.5s" }}
+            >
               <CoverImage nsfw={image_nsfw} url={image} title={title} />
             </div>
-            <h1 className="text-5xl -m-5 mt-10 leading-normal text-green-400 text-center col-span-4 font-semibold " style={{ animation: 'fadeInUp 1.5s' }}>
+            <h1
+              className="text-5xl -m-5 mt-10 leading-normal text-green-400 text-center col-span-4 font-semibold "
+              style={{ animation: "fadeInUp 1.5s" }}
+            >
               {title}
               {original && (
                 <p className="text-2xl mt-5 mb-5 text-green-200 font-semibold">
                   {original}
                 </p>
               )}
-              <p className="text-base font-mono mt-3 font-medium text-gray-600">
+              <p className="text-base  mt-3 font-medium text-gray-600">
                 Released on {released}
               </p>
-              <p className="text-base font-mono mt-3 font-medium text-gray-600">
+              <p className="text-base  mt-3 font-medium text-gray-600">
                 {parseLength(length)}
               </p>
             </h1>
 
-            <div className="h-64 shadow-lg rounded-2xl col-span-2 w-56  bg-white dark:bg-gray-800" style={{ animation: 'fadeInUp 1.5s' }}>
-              <div className="ml-5 mt-6 mb-2" style={{ width: 180, height: 180 }}>
-
-                <CircularProgressbar className={`font-mono font-bold`} value={vote * 10} text={`${vote === -1 ? '-' : vote}`}
+            <div
+              className="h-64 shadow-lg rounded-2xl col-span-2 w-52  bg-white dark:bg-gray-800"
+              style={{ animation: "fadeInUp 1.5s" }}
+            >
+              <div className="mt-4 ml-2" style={{ width: 185, height: 185 }}>
+                <CircularProgressbar
+                  className={` font-semibold p-4 m-1`}
+                  value={vote * 10}
+                  text={`${vote === -1 ? "-" : vote}`}
                   styles={buildStyles({
-                    textSize: '2.2em',
+                    textSize: "2.5rem",
                     textColor: ratingColor,
                     pathColor: ratingColor,
-                  })} />
-
+                  })}
+                />
               </div>
               <span
-                className={`px-4 py-1 ml-16  leading-10 font-mono font-medium rounded-full 
-                              bg-${parseStatusColor(status)}-300 
-                              text-${parseStatusColor(status)}-800`}
+                className={`px-3 py-1 ml-16 leading-10  font-medium rounded-lg 
+                              bg-${parseStatusColor(status)}-200 
+                              text-${parseStatusColor(status)}-700`}
               >
                 {parseStatus(status)}
               </span>
             </div>
 
-            <button type="button"
-
+            <button
+              type="button"
               className="right-10 absolute p-2 rounded-md 
               focus:outline-none focus:ring-2 focus:ring-red-500  sm:-mr-2"
-
               onClick={toggleModal}
-
             >
-              <span className="sr-only">
-                Dismiss
-                </span>
+              <span className="sr-only">Dismiss</span>
               <Close />
             </button>
           </div>
@@ -124,8 +131,8 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
           <div className="bg-white  overflow-hidden sm:rounded-lg">
             <div className="grid grid-flow-col gap-4 px-20 max-w-screen-xl">
               <div className="col-span-1">
-                <div >
-                  <dl className="mb-10" style={{ animation: 'fadeInUp 1.5s' }} >
+                <div>
+                  <dl className="mb-10" style={{ animation: "fadeInUp 1.5s" }}>
                     <div className="bg-gray-300 px-4 py-3 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6">
                       <dt className="text-black text-lg font-bold text-right mr-20 content-center">
                         <h1>Synopsis</h1>
@@ -148,7 +155,7 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
                       </dd>
                     </div>
                     <div
-                      style={{ animation: 'fadeInUp 1.75s' }}
+                      style={{ animation: "fadeInUp 1.75s" }}
                       className={`bg-${parseStatusColor(
                         status
                       )}-100 px-4 py-3 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6`}
@@ -163,14 +170,11 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
                         {notes}
                       </dd>
                     </div>
-
                   </dl>
                 </div>
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>
@@ -231,17 +235,17 @@ function parseStatusColor(status: number) {
 const useEscape = (toggleModal: () => void) => {
   useEffect(() => {
     interface HandlerProps {
-      key: string
+      key: string;
     }
 
     function downHandler({ key }: HandlerProps) {
-      if (key === 'Escape') {
+      if (key === "Escape") {
         toggleModal();
       }
     }
 
-    window.addEventListener('keydown', downHandler);
+    window.addEventListener("keydown", downHandler);
 
-    return () => window.removeEventListener('keydown', downHandler);
-  })
-}
+    return () => window.removeEventListener("keydown", downHandler);
+  });
+};

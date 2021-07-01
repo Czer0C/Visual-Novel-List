@@ -46,7 +46,7 @@ export const Main = ({ displayList, headerHandler }: MainProps) => {
     ["Released", "center", "sort"],
     ["Vote", "center", "sort"],
     ["Status", "center", "multiselect"],
-    ["View", "center", "normal"],
+    ["", "center", "normal"],
   ];
 
   const selectHandler = async (index: number) => {
