@@ -21,7 +21,7 @@ Pretty acceptable so far.
 
 **Update 3: usability at acceptable rate for now**. I have pretty much covered the majority of high priority features that I had envisioned early on, albeit at great cost of effort and time (no really, it's A LOT for something that is meant to be super simple). I guess TypeScript really is a pain (and overkilled) for a small scale project like this but whatever. One thing that has yet to be perfect is the filtering and sorting logic, but that can be improved at some point later. Floating action button is more or less bonus so not a big deal for now. To sum it up, working with table is no fun but I just wanted to have a taste of TailwindCSS in general so welp. NextJS is still a bomb though and I really look forward to more upgrade later on.
 
-**Update 4: It's been a few months since I last touched this project and damn I still can't believe how much of an idiot I was when I started the damn thing. But anyway, took the liberty to fix some wonky useEffect flow, replaced unneccessary JS with pure CSS (because why not), slight animation update, and a bit of UI/UX improvement. There are still some leftover stuff that needs taking care of but that's a story for another time.
+**Update 4**: It's been a few months since I last touched this project and damn I still can't believe how much of an idiot I was when I started the damn thing. But anyway, took the liberty to fix some wonky useEffect flow, replaced unneccessary JS with pure CSS (because why not), slight animation update, and a bit of UI/UX improvement. There are still some leftover stuff that needs taking care of but that's a story for another time.
 
 ### Stuff to improve later:
 
