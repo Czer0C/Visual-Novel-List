@@ -16,6 +16,7 @@ export const CoverImage = ({ nsfw, url, title }: CoverImageProps) => {
           className="absolute z-0 hover:opacity-0 cursor-pointer transition-opacity duration-500"
           src="/nsfw_warning.jpg"
           layout="fill"
+          alt="nsfw placeholder"
         />
       )}
     </div>

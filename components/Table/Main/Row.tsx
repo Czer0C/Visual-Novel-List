@@ -81,6 +81,7 @@ export const Row = ({ data, index, onSelect }: RowProps) => {
                 <a
                   href={`https://vndb.org/v${id}`}
                   target="_blank"
+                  rel="noreferrer"
                   className="text-indigo-500 hover:text-indigo-700 sm:ml-4"
                 >
                   <FontAwesomeIcon icon={faExternalLinkAlt} />
@@ -112,7 +113,7 @@ export const Row = ({ data, index, onSelect }: RowProps) => {
         </span>
       </td>
       <td className="w-24 px-4 py-4 border-b border-gray-200 bg-white text-sm text-center">
-        <Link href="javascript:void(0)">
+        <Link href="javascript:void(0)" passHref>
           <Tippy moveTransition="transform 2s ease-out" content="View Detail">
             <span className="">
               <a

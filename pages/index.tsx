@@ -1,18 +1,18 @@
 import moment from "moment";
-import { getUserList, getVisualNovel } from "../services/vndb/index";
+import { getUserList, getVisualNovel } from "../lib/vndb/";
 import { Table } from "../components/Table/Table";
-import { VNInUserList, VisualNovel } from '../services/vndb/types';
+import { VNInUserList, VisualNovel } from "../lib/vndb/types";
 
 const userID = `131608`;
 const limit = 100; // ! Maximum number of item per request (though I doubt I'd ever gonna read this many VN)
 
 interface HomeProps {
-  fullList: any[]
+  fullList: any[];
 }
 
 const Home = ({ fullList }: HomeProps) => {
-  if (typeof window === undefined) return <div>'loading...'</div>;
-  
+  if (typeof window === undefined) return <div>loading...</div>;
+
   return fullList && <Table fullList={fullList} />;
 };
 
@@ -64,15 +64,8 @@ const getFullList = async () => {
 
 const joinAndClean = (uList: VNInUserList[], vns: VisualNovel[]) => {
   const fullList = uList.map((base, index) => {
-    const {
-      labels,
-      lastmod,
-      started,
-      finished,
-      added,
-      uid,
-      ...formatedBase
-    } = base;
+    const { labels, lastmod, started, finished, added, uid, ...formatedBase } =
+      base;
 
     const {
       languages,

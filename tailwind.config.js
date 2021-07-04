@@ -1,12 +1,13 @@
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   darkMode: false, // or 'media' or 'class'
-  theme: {
-  },
+  theme: {},
   variants: {
     extend: {
-      borderColor: ['focus-visible'],
-      opacity: ['disabled'],
-    }
+      borderColor: ["focus-visible"],
+      opacity: ["disabled"],
+    },
   },
   plugins: [],
-}
+};

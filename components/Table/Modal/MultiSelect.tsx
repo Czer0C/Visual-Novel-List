@@ -100,7 +100,7 @@ export const MultiSelect = ({ headerHandler }: MultiSelectProps) => {
     <form>
       <label
         className={` transform -translate-x-12 translate-y-2.5
-                    absolute text-${color}-600 z-20 
+                    absolute text-${color}-600 z-10
                     text-gray-800 text-sm uppercase font-bold select-none
                     `}
         id="status-select"

@@ -34,11 +34,11 @@ export const THeader = ({
 }: THeaderProps) => {
   const [mode, setMode] = useState(Mode.UNSORTED);
 
-  useEffect(()  => {
+  useEffect(() => {
     if (!active) {
-      setMode(Mode.UNSORTED)
+      setMode(Mode.UNSORTED);
     }
-  })
+  }, [active]);
 
   const headerClick = () => {
     if (type === HeaderType.NORMAL) {
@@ -64,7 +64,7 @@ export const THeader = ({
     <th
       scope="col"
       className={`px-1 py-4 bg-white text-${align || "center"} 
-        transition-all delay-100 ease-in-out  text-gray-800 
+        transition-transform ease-out duration-75  text-gray-800 
        uppercase font-bold text-base  border-b border-white
                     ${"w-96"}
                     ${

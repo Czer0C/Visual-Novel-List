@@ -6,10 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { Close } from "@components/icons/Close";
 
+import useOnClickOutside from "use-onclickoutside";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-
-import "react-circular-progressbar/dist/styles.css";
 import { CoverImage } from "./CoverImage";
+import "react-circular-progressbar/dist/styles.css";
+import { useLockBodyScroll } from "lib/hooks/useLockBodyScroll";
 
 interface ModalProps {
   details: any;
@@ -17,14 +18,15 @@ interface ModalProps {
   isVisible: boolean;
 }
 
-export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
+export const Modal = ({ details, toggleModal }: ModalProps) => {
   const { vote, added, voted, status, notes } = details;
+  const ref = React.useRef(null);
 
   useEscape(toggleModal);
 
-  useLayoutEffect(() => {
-    document.body.style.overflow = !isVisible ? "hidden" : "unset";
-  }, [isVisible]);
+  useOnClickOutside(ref, toggleModal);
+
+  useLockBodyScroll();
 
   const {
     description,
@@ -55,7 +57,7 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
 
   return (
     <div
-      className={`main-modal fixed hidden inset-0  mt-5 overflow-auto`}
+      className={`main-modal fixed inset-0 z-40 overflow-auto`}
       aria-labelledby="dialog-1-title"
       role="dialog"
       aria-modal="true"
@@ -65,7 +67,8 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
         <div
           className="
             inline-block align-bottom bg-white text-left rounded-lg overflow-hidden 
-            shadow-xl transform transition-all max-w-7xl"
+            shadow-xl transform transition-all max-w-7xl modal-body"
+          ref={ref}
         >
           <div className="px-4 py-5 sm:grid sm:grid-cols-8  sm:gap-8 sm:px-6">
             <div
@@ -144,6 +147,7 @@ export const Modal = ({ details, toggleModal, isVisible }: ModalProps) => {
                             <a
                               href={`https://vndb.org/v${id}`}
                               target="_blank"
+                              rel="noreferrer"
                               className="text-indigo-500 hover:text-indigo-700 sm:ml-4"
                             >
                               <FontAwesomeIcon icon={faExternalLinkAlt} />

@@ -73,10 +73,11 @@ a {
 .main-modal {
   animation: fadeInUp 1s;
 
-  /* visibility: visible;
-  opacity: 1;
-  transition: opacity 2s linear,  visibility 0s; */
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: rgba(#201f1f, 0.3);
 }
+
 dd,
 dt {
   font-family: "Montserrat", sans-serif;
@@ -89,13 +90,13 @@ dt {
 }
 
 #skeleton {
-  animation: fadeInUp 1s;
+  animation: fadeInUp 0.75s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20%);
+    transform: translateY(-20%);
   }
 
   to {
