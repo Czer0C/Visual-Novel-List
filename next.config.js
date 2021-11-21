@@ -1,5 +1,5 @@
 module.exports = {
   images: {
-    domains: ["s2.vndb.org"],
+    domains: ["s2.vndb.org", "res.cloudinary.com"],
   },
-};
+}

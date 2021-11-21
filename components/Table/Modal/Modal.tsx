@@ -73,13 +73,13 @@ export const Modal = ({ details, toggleModal }: ModalProps) => {
           <div className="px-4 py-5 sm:grid sm:grid-cols-8  sm:gap-8 sm:px-6">
             <div
               className="col-span-2 ml-auto"
-              style={{ animation: "fadeInUp 1.5s" }}
+              style={{ animation: "fadeInUp 1.15s" }}
             >
               <CoverImage nsfw={image_nsfw} url={image} title={title} />
             </div>
             <h1
               className="text-5xl -m-5 mt-10 leading-normal text-green-400 text-center col-span-4 font-semibold "
-              style={{ animation: "fadeInUp 1.5s" }}
+              style={{ animation: "fadeInUp 1.15s" }}
             >
               {title}
               {original && (
@@ -97,7 +97,7 @@ export const Modal = ({ details, toggleModal }: ModalProps) => {
 
             <div
               className="h-64 shadow-lg rounded-2xl col-span-2 w-52  bg-white dark:bg-gray-800"
-              style={{ animation: "fadeInUp 1.5s" }}
+              style={{ animation: "fadeInUp 1.15s" }}
             >
               <div className="mt-4 ml-2" style={{ width: 185, height: 185 }}>
                 <CircularProgressbar
@@ -135,7 +135,7 @@ export const Modal = ({ details, toggleModal }: ModalProps) => {
             <div className="grid grid-flow-col gap-4 px-20 max-w-screen-xl">
               <div className="col-span-1">
                 <div>
-                  <dl className="mb-10" style={{ animation: "fadeInUp 1.5s" }}>
+                  <dl className="mb-10" style={{ animation: "fadeInUp 1.15s" }}>
                     <div className="bg-gray-300 px-4 py-3 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6">
                       <dt className="text-black text-lg font-bold text-right mr-20 content-center">
                         <h1>Synopsis</h1>
@@ -159,7 +159,7 @@ export const Modal = ({ details, toggleModal }: ModalProps) => {
                       </dd>
                     </div>
                     <div
-                      style={{ animation: "fadeInUp 1.75s" }}
+                      style={{ animation: "fadeInUp 1.15s" }}
                       className={`bg-${parseStatusColor(
                         status
                       )}-100 px-4 py-3 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6`}

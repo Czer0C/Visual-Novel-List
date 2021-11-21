@@ -71,7 +71,7 @@ a {
 }
 
 .main-modal {
-  animation: fadeInUp 1s;
+  animation: fadeInUp 0.8s;
 
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);

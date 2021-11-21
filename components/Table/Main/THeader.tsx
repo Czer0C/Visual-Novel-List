@@ -1,14 +1,14 @@
-import { ArrowBack } from "@components/icons/ArrowBack";
-import React, { useState, useEffect } from "react";
+import { ArrowBack } from "@components/icons/ArrowBack"
+import React, { useState, useEffect } from "react"
 
 interface THeaderProps {
-  children: any;
-  align?: "center" | "left" | "right" | "justify";
-  type: "sort" | "multiselect" | "normal";
-  attribute: string;
-  headerHandler: (filterType: string, value: string, context: string) => void;
-  active: boolean;
-  onSelect: (header: string) => void;
+  children: any
+  align?: "center" | "left" | "right" | "justify"
+  type: "sort" | "multiselect" | "normal"
+  attribute: string
+  headerHandler: (filterType: string, value: string, context: string) => void
+  active: boolean
+  onSelect: (header: string) => void
 }
 
 enum Mode {
@@ -32,37 +32,37 @@ export const THeader = ({
   onSelect,
   active,
 }: THeaderProps) => {
-  const [mode, setMode] = useState(Mode.UNSORTED);
+  const [mode, setMode] = useState(Mode.UNSORTED)
 
   useEffect(() => {
     if (!active) {
-      setMode(Mode.UNSORTED);
+      setMode(Mode.UNSORTED)
     }
-  }, [active]);
+  }, [active])
 
   const headerClick = () => {
     if (type === HeaderType.NORMAL) {
-      return;
+      return
     }
 
     // ! One step ahead of the list
     const context =
-      mode === 0 ? "descending" : mode === 1 ? "ascending" : "clear";
-    onSelect(attribute);
-    headerHandler(type, attribute, context);
-    updateHeaderIcon();
-  };
+      mode === 0 ? "descending" : mode === 1 ? "ascending" : "clear"
+    onSelect(attribute)
+    headerHandler(type, attribute, context)
+    updateHeaderIcon()
+  }
 
   const updateHeaderIcon = () => {
     if (type === HeaderType.SORT) {
-      const nextMode = (mode + 1) % 3;
-      setMode(nextMode);
+      const nextMode = (mode + 1) % 3
+      setMode(nextMode)
     }
-  };
+  }
 
   return (
     <th
-      scope="col"
+      scope='col'
       className={`px-1 py-4 bg-white text-${align || "center"} 
         transition-transform ease-out duration-75  text-gray-800 
        uppercase font-bold text-base  border-b border-white
@@ -78,5 +78,5 @@ export const THeader = ({
     >
       {children} {type === HeaderType.SORT && <ArrowBack />}
     </th>
-  );
-};
+  )
+}
