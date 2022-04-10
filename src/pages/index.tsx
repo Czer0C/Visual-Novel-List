@@ -9,6 +9,7 @@ import {
 import PopoverDemo from '@/components/Popover';
 import Select from '@/components/Select';
 import Tag from '@/components/Tag';
+import Tooltip from '@/components/Tooltip';
 import { Meta } from '@/layout/Meta';
 import { Main } from '@/templates/Main';
 import { getFullList } from '@/utils/connect';
@@ -87,80 +88,91 @@ const Index = ({ list }: Props) => {
         />
       }
     >
-      <div className="">
-        <div className="flex min-h-screen min-w-min items-start justify-center  font-sans">
-          <div className="w-full">
-            <div className="my-6 rounded bg-white shadow-md">
-              <table className="w-full min-w-max table-auto">
-                <thead>
-                  <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600">
-                    <th className="p-3 text-left">#</th>
-                    <th className="p-3 text-left">Title</th>
-                    <th className="p-3 text-center">Released</th>
-                    <th
-                      onClick={sortByVote}
-                      className="flex h-16 cursor-pointer items-center justify-center gap-2 p-3 text-center"
-                    >
-                      Vote {ICONS[sortMode]}
-                    </th>
+      <div className="flex min-h-screen min-w-min items-start justify-center font-sans">
+        <div className="my-6 rounded bg-white shadow-lg">
+          <table className="w-full table-auto">
+            <thead>
+              <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600">
+                <th className="rounded-tl-lg p-3 text-left">#</th>
+                <th className="p-3 text-left">
+                  Title
+                  {/* <input
+                    type="text"
+                    autoComplete="title"
+                    placeholder="Quick Search"
+                    onChange={handleSearch}
+                    className={classNames(
+                      'block w-1/2 rounded-md',
+                      'text-xs text-gray-700 placeholder:text-gray-500 dark:text-gray-600 dark:placeholder:text-gray-500',
+                      'border border-gray-400 focus-visible:border-transparent dark:border-gray-700 dark:bg-gray-200',
+                      'focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75'
+                    )}
+                  /> */}
+                </th>
+                <th className="p-3 text-left">Released</th>
+                <th
+                  onClick={sortByVote}
+                  className="flex h-16 cursor-pointer items-center justify-center gap-2 p-3 text-center"
+                >
+                  Vote {ICONS[sortMode]}
+                </th>
 
-                    <th className="p-3 text-center">
-                      <Select onChange={handleFilter} />
-                    </th>
-                  </tr>
-                </thead>
+                <th className="rounded-tr-lg p-3 text-center">
+                  <Select onChange={handleFilter} />
+                </th>
+              </tr>
+            </thead>
 
-                <tbody className="text-sm font-light text-gray-600">
-                  {data.map((row, index) => (
-                    <tr
-                      key={row.id}
-                      className="border-b border-gray-200 hover:bg-gray-100"
-                    >
-                      <td className="w-4 p-3 text-left">
-                        <span className="font-medium">{index + 1}</span>
-                      </td>
-                      <td className="w-40 p-3 text-left">
-                        <div className="flex items-center">
-                          <div className="mr-2">
-                            {row.image ? (
-                              <>
-                                <img
-                                  className="aspect-auto w-24"
-                                  src={row.image}
-                                  alt={row.title}
-                                />
-                              </>
-                            ) : (
-                              'Deleted Entry'
-                            )}
-                          </div>
-                          <span className="w-40 overflow-hidden text-ellipsis whitespace-nowrap font-normal leading-normal text-gray-700">
-                            {row.title} <br />
-                            {row.original} <br />
-                          </span>
-                        </div>
-                      </td>
-                      <td className="w-32 p-3 text-center">
-                        <div className="flex items-center justify-center font-normal">
-                          {row.released}
-                        </div>
-                      </td>
-                      <td className="w-24 p-3 text-center">
-                        <Tag vote={row.vote} />
-                      </td>
+            <tbody className="text-sm font-light text-gray-600">
+              {data.map((row, index) => (
+                <tr key={row.id} className="border-b-2 border-gray-200 pb-2">
+                  <td className="w-4 p-3 text-left">
+                    <span className="font-medium">{index + 1}</span>
+                  </td>
+                  <td className="w-40 p-3 text-left">
+                    <div className="flex items-center">
+                      <div className="mr-2">
+                        {row.image ? (
+                          <>
+                            <img
+                              className="aspect-auto w-24"
+                              src={row.image}
+                              alt={row.title}
+                            />
+                          </>
+                        ) : (
+                          'Deleted Entry'
+                        )}
+                      </div>
+                      <Tooltip
+                        content={`${row.title}${
+                          row.original ? ` - ${row.original}` : ''
+                        }`}
+                      >
+                        <span className="w-40 overflow-hidden text-ellipsis whitespace-nowrap font-normal leading-normal">
+                          {row.title} <br />
+                          {row.original} <br />
+                        </span>
+                      </Tooltip>
+                    </div>
+                  </td>
+                  <td className="w-32 p-3 text-left font-normal">
+                    {row.released}
+                  </td>
+                  <td className="w-24 p-3 text-center">
+                    <Tag vote={row.vote} />
+                  </td>
 
-                      <td className="w-24 p-3 text-center">
-                        <PopoverDemo content={row.notes} status={row.status} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              {data.length === 0 && (
-                <span className="block w-full p-2 text-center">No Result</span>
-              )}
-            </div>
-          </div>
+                  <td className="w-24 p-3 text-center">
+                    <PopoverDemo content={row.notes} status={row.status} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {data.length === 0 && (
+            <span className="block w-full p-2 text-center">No Result</span>
+          )}
         </div>
       </div>
     </Main>

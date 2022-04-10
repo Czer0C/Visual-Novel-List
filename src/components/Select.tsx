@@ -28,14 +28,14 @@ const Select = ({ onChange }: Props) => {
         <SelectPrimitive.ScrollUpButton className="flex items-center justify-center text-gray-700 dark:text-gray-300">
           <ChevronUpIcon />
         </SelectPrimitive.ScrollUpButton>
-        <SelectPrimitive.Viewport className="rounded-lg bg-white p-2 shadow-lg dark:bg-gray-800">
+        <SelectPrimitive.Viewport className="rounded-lg bg-white p-2 shadow-lg dark:bg-gray-600">
           <SelectPrimitive.Group>
             {['All', ...STATUS].map((f, i) => (
               <SelectPrimitive.Item
                 key={`${f}-${i}`}
                 value={f.toLowerCase()}
                 className={cx(
-                  'relative flex items-center px-8 py-2 rounded-md text-sm text-gray-700 dark:text-gray-300 font-medium focus:bg-gray-100 dark:focus:bg-gray-900',
+                  'relative flex items-center px-8 py-2 rounded-md text-sm text-gray-700 dark:text-gray-300 font-medium focus:bg-gray-100 dark:focus:bg-gray-700',
                   'radix-disabled:opacity-50',
                   'focus:outline-none select-none'
                 )}
