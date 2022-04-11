@@ -16,12 +16,15 @@
   "dependencies": {
     "@headlessui/react": "^1.5.0",
     "@radix-ui/colors": "^0.1.8",
+    "@radix-ui/react-accordion": "^0.1.6",
     "@radix-ui/react-dialog": "^0.1.7",
+    "@radix-ui/react-dropdown-menu": "^0.1.6",
     "@radix-ui/react-icons": "^1.1.0",
     "@radix-ui/react-navigation-menu": "^0.1.2",
     "@radix-ui/react-popover": "^0.1.6",
     "@radix-ui/react-select": "^0.1.1",
     "@radix-ui/react-tabs": "^0.1.5",
+    "@radix-ui/react-toggle": "^0.1.4",
     "@radix-ui/react-tooltip": "^0.1.7",
     "@stitches/react": "^1.2.7",
     "classnames": "^2.3.1",
@@ -29,6 +32,7 @@
     "next-seo": "^5.4.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "tailwindcss-radix": "^2.0.0",
     "vndb-api": "^1.0.3"
   },
   "devDependencies": {

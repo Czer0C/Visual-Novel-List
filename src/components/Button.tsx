@@ -15,10 +15,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
         'hover:bg-gray-50',
         'focus:outline-none focus-visible:ring focus-visible:ring-gray-500 focus-visible:ring-opacity-75',
         // Register all radix states
-        'group',
-        'radix-state-open:bg-gray-50 dark:radix-state-open:bg-gray-900',
-        'radix-state-on:bg-gray-50 dark:radix-state-on:bg-gray-900',
-        'radix-state-instant-open:bg-gray-50 radix-state-delayed-open:bg-gray-50'
+        'group'
       )}
     >
       {children}

@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 
 import { Transition } from '@headlessui/react';
+import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import {
   ArrowDownIcon,
@@ -12,7 +13,9 @@ import cx from 'classnames';
 
 import Button from '@/components/Button';
 import Select from '@/components/Select';
+import Tabs from '@/components/Tab';
 import Tag from '@/components/Tag';
+import ThemeSwitcher from '@/components/ThemeSwitcher';
 import Tooltip from '@/components/Tooltip';
 import { Meta } from '@/layout/Meta';
 import { Main } from '@/templates/Main';
@@ -111,6 +114,8 @@ const Index = ({ list }: Props) => {
         />
       }
     >
+      <ThemeSwitcher />
+
       <div className="flex min-h-screen min-w-min items-start justify-center font-sans">
         <div className="my-6 rounded bg-white shadow-lg">
           <table className="w-full table-auto">
@@ -152,72 +157,106 @@ const Index = ({ list }: Props) => {
 
             <tbody className="text-sm font-light text-gray-600">
               {data.map((row, index) => (
-                <tr key={row.id} className="border-b-2 border-gray-200 pb-2">
-                  <td className="w-10 p-3 text-left">
-                    <span className="font-medium">{index + 1}</span>
-                  </td>
-                  <td className="w-32 p-3 text-left sm:w-80">
-                    <div className="flex items-center">
-                      <div className="mr-2">
-                        {row.image ? (
-                          <>
-                            <img
-                              // className="aspect-auto w-24"
-                              src={row.image}
-                              alt={`Cover for ${row.title}`}
-                              width={72}
-                              height={96}
-                            />
-                          </>
-                        ) : (
-                          ''
-                        )}
-                      </div>
-                      <Tooltip
-                        content={`${row.title}${
-                          row.original ? ` - ${row.original}` : ''
-                        }`}
-                      >
-                        <span className="w-40 overflow-hidden text-ellipsis whitespace-nowrap font-normal">
-                          <a
-                            href={`https://vndb.org/v${row.id}`}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="outline-gray-500 focus-visible:outline-dashed focus-visible:outline-2 focus-visible:outline-offset-0"
-                          >
-                            {row.title || "VNDB's Nuked Entry"}
-                          </a>
-                          <br />
-                          {row.original} <br />
-                        </span>
-                      </Tooltip>
-                    </div>
-                  </td>
-                  <td className="w-32 p-3 text-left font-medium">
-                    {row.released}
-                  </td>
-                  <td className="w-24 p-3 text-center">
-                    {row.vote > 0 ? <Tag vote={row.vote} /> : '—'}
-                  </td>
-
-                  <td className="w-24 p-3 text-center">
-                    {/* <Dialog content={row} /> */}
-                    <DialogPrimitive.Root
-                      modal
-                      open={isOpen}
-                      onOpenChange={setIsOpen}
-                    >
-                      <DialogPrimitive.Trigger asChild>
-                        <Button
-                          aria-label="View Note"
-                          onClick={() => handleModal(row)}
+                <>
+                  <tr key={row.id} className="border-b-2 border-gray-200 pb-2">
+                    <td className="w-10 p-3 text-left">
+                      <span className="font-medium">{index + 1}</span>
+                    </td>
+                    <td className="w-32 p-3 text-left sm:w-80">
+                      <div className="flex items-center">
+                        <div className="mr-2">
+                          {row.image ? (
+                            <>
+                              <img
+                                // className="aspect-auto w-24"
+                                src={row.image}
+                                alt={`Cover for ${row.title}`}
+                                width={72}
+                                height={96}
+                              />
+                            </>
+                          ) : (
+                            ''
+                          )}
+                        </div>
+                        <Tooltip
+                          content={`${row.title}${
+                            row.original ? ` - ${row.original}` : ''
+                          }`}
                         >
-                          <HamburgerMenuIcon />
-                        </Button>
-                      </DialogPrimitive.Trigger>
-                    </DialogPrimitive.Root>
-                  </td>
-                </tr>
+                          <span className="w-40 overflow-hidden text-ellipsis whitespace-nowrap font-normal">
+                            <a
+                              href={`https://vndb.org/v${row.id}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="outline-gray-500 focus-visible:outline-dashed focus-visible:outline-2 focus-visible:outline-offset-0"
+                            >
+                              {row.title || "VNDB's Nuked Entry"}
+                            </a>
+                            <br />
+                            {row.original} <br />
+                          </span>
+                        </Tooltip>
+                      </div>
+                    </td>
+                    <td className="w-32 p-3 text-left font-medium">
+                      {row.released}
+                    </td>
+                    <td className="w-24 p-3 text-center">
+                      {row.vote > 0 ? <Tag vote={row.vote} /> : '—'}
+                    </td>
+
+                    <td className="w-24 p-3 text-center">
+                      {/* <Dialog content={row} /> */}
+                      <DialogPrimitive.Root
+                        modal
+                        open={isOpen}
+                        onOpenChange={setIsOpen}
+                      >
+                        <DialogPrimitive.Trigger asChild>
+                          <Button
+                            aria-label="View Note"
+                            onClick={() => handleModal(row)}
+                          >
+                            <HamburgerMenuIcon />
+                          </Button>
+                        </DialogPrimitive.Trigger>
+                      </DialogPrimitive.Root>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td colSpan={5}>
+                      <AccordionPrimitive.Root
+                        type="single"
+                        collapsible
+                        // defaultValue="item-1"
+                        className={cx('space-y-4')}
+                      >
+                        <AccordionPrimitive.Item
+                          value={`item-1`}
+                          className="rounded-lg focus-within:ring focus-within:ring-purple-500 focus-within:ring-opacity-75 focus:outline-none"
+                        >
+                          <AccordionPrimitive.Header className="w-full">
+                            <AccordionPrimitive.Trigger
+                              className={cx(
+                                'group',
+                                'radix-state-open:rounded-t-lg radix-state-closed:rounded-lg',
+                                'focus:outline-none',
+                                'inline-flex w-full items-center justify-between bg-white px-4 py-2 text-left dark:bg-gray-800'
+                              )}
+                            ></AccordionPrimitive.Trigger>
+                          </AccordionPrimitive.Header>
+                          <AccordionPrimitive.Content className="pt-r1 w-full rounded-b-lg bg-white px-4 pb-3 dark:bg-gray-800">
+                            <div className="text-sm text-gray-700 dark:text-gray-400">
+                              {row.notes}
+                            </div>
+                          </AccordionPrimitive.Content>
+                        </AccordionPrimitive.Item>
+                      </AccordionPrimitive.Root>
+                    </td>
+                  </tr>
+                </>
               ))}
             </tbody>
           </table>
@@ -269,6 +308,8 @@ const Index = ({ list }: Props) => {
                 </DialogPrimitive.Title>
                 <Tag status={content?.status} />
               </div>
+
+              <Tabs />
 
               <DialogPrimitive.Description className="text-sm font-normal text-gray-700 dark:text-gray-400">
                 {content?.notes}
