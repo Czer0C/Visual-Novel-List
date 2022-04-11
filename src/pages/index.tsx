@@ -6,7 +6,7 @@ import {
   CaretSortIcon,
 } from '@radix-ui/react-icons';
 
-import PopoverDemo from '@/components/Popover';
+import Dialog from '@/components/Dialog';
 import Select from '@/components/Select';
 import Tag from '@/components/Tag';
 import Tooltip from '@/components/Tooltip';
@@ -110,11 +110,15 @@ const Index = ({ list }: Props) => {
                   /> */}
                 </th>
                 <th className="p-3 text-left">Released</th>
-                <th
-                  onClick={sortByVote}
-                  className="flex h-16 cursor-pointer items-center justify-center gap-2 p-3 text-center"
-                >
-                  Vote {ICONS[sortMode]}
+                <th className="p-3 text-center">
+                  <Tooltip content="Sort By Score">
+                    <button
+                      className="flex items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-bold uppercase leading-normal focus:outline-none focus-visible:ring focus-visible:ring-gray-500 focus-visible:ring-opacity-75"
+                      onClick={sortByVote}
+                    >
+                      Vote {ICONS[sortMode]}
+                    </button>
+                  </Tooltip>
                 </th>
 
                 <th className="rounded-tr-lg p-3 text-center">
@@ -126,10 +130,10 @@ const Index = ({ list }: Props) => {
             <tbody className="text-sm font-light text-gray-600">
               {data.map((row, index) => (
                 <tr key={row.id} className="border-b-2 border-gray-200 pb-2">
-                  <td className="w-4 p-3 text-left">
+                  <td className="w-10 p-3 text-left">
                     <span className="font-medium">{index + 1}</span>
                   </td>
-                  <td className="w-40 p-3 text-left">
+                  <td className="w-32 p-3 text-left sm:w-80">
                     <div className="flex items-center">
                       <div className="mr-2">
                         {row.image ? (
@@ -141,7 +145,7 @@ const Index = ({ list }: Props) => {
                             />
                           </>
                         ) : (
-                          'Deleted Entry'
+                          ''
                         )}
                       </div>
                       <Tooltip
@@ -150,7 +154,14 @@ const Index = ({ list }: Props) => {
                         }`}
                       >
                         <span className="w-40 overflow-hidden text-ellipsis whitespace-nowrap font-normal leading-normal">
-                          {row.title} <br />
+                          <a
+                            href={`https://vndb.org/v${row.id}`}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {row.title || "VNDB's Nuked Entry"}
+                          </a>
+                          <br />
                           {row.original} <br />
                         </span>
                       </Tooltip>
@@ -160,11 +171,11 @@ const Index = ({ list }: Props) => {
                     {row.released}
                   </td>
                   <td className="w-24 p-3 text-center">
-                    <Tag vote={row.vote} />
+                    {row.vote > 0 ? <Tag vote={row.vote} /> : '—'}
                   </td>
 
                   <td className="w-24 p-3 text-center">
-                    <PopoverDemo content={row.notes} status={row.status} />
+                    <Dialog content={row} />
                   </td>
                 </tr>
               ))}
