@@ -153,11 +153,12 @@ const Index = ({ list }: Props) => {
                           row.original ? ` - ${row.original}` : ''
                         }`}
                       >
-                        <span className="w-40 overflow-hidden text-ellipsis whitespace-nowrap font-normal leading-normal">
+                        <span className="w-40 overflow-hidden text-ellipsis whitespace-nowrap font-normal">
                           <a
                             href={`https://vndb.org/v${row.id}`}
                             target="_blank"
                             rel="noreferrer"
+                            className="outline-gray-500 focus-visible:outline-dashed focus-visible:outline-2 focus-visible:outline-offset-0"
                           >
                             {row.title || "VNDB's Nuked Entry"}
                           </a>
