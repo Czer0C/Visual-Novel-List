@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 
+import { Transition } from '@headlessui/react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 import {
   ArrowDownIcon,
   ArrowUpIcon,
   CaretSortIcon,
+  HamburgerMenuIcon,
 } from '@radix-ui/react-icons';
+import cx from 'classnames';
 
-import Dialog from '@/components/Dialog';
+import Button from '@/components/Button';
 import Select from '@/components/Select';
 import Tag from '@/components/Tag';
 import Tooltip from '@/components/Tooltip';
@@ -28,6 +32,19 @@ const ICONS = {
 };
 
 const Index = ({ list }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [content, setContent] = useState<MergedVNItem>({
+    vote: 0,
+    status: '-',
+    id: 0,
+    notes: '',
+    title: '',
+    statusCode: 0,
+    voted: '',
+    image_nsfw: false,
+  });
+
   const [data, setData] = useState(list);
 
   const [sortMode, setSortMode] = useState(SORT_STATE.init);
@@ -79,6 +96,12 @@ const Index = ({ list }: Props) => {
     setData(filteredList);
   };
 
+  const handleModal = (row: MergedVNItem) => {
+    setContent(() => ({
+      ...row,
+    }));
+  };
+
   return (
     <Main
       meta={
@@ -92,7 +115,7 @@ const Index = ({ list }: Props) => {
         <div className="my-6 rounded bg-white shadow-lg">
           <table className="w-full table-auto">
             <thead>
-              <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600">
+              <tr className="bg-gray-300 text-sm uppercase leading-normal text-gray-600">
                 <th className="rounded-tl-lg p-3 text-left">#</th>
                 <th className="p-3 text-left">
                   Title
@@ -139,9 +162,11 @@ const Index = ({ list }: Props) => {
                         {row.image ? (
                           <>
                             <img
-                              className="aspect-auto w-24"
+                              // className="aspect-auto w-24"
                               src={row.image}
-                              alt={row.title}
+                              alt={`Cover for ${row.title}`}
+                              width={72}
+                              height={96}
                             />
                           </>
                         ) : (
@@ -168,7 +193,7 @@ const Index = ({ list }: Props) => {
                       </Tooltip>
                     </div>
                   </td>
-                  <td className="w-32 p-3 text-left font-normal">
+                  <td className="w-32 p-3 text-left font-medium">
                     {row.released}
                   </td>
                   <td className="w-24 p-3 text-center">
@@ -176,7 +201,21 @@ const Index = ({ list }: Props) => {
                   </td>
 
                   <td className="w-24 p-3 text-center">
-                    <Dialog content={row} />
+                    {/* <Dialog content={row} /> */}
+                    <DialogPrimitive.Root
+                      modal
+                      open={isOpen}
+                      onOpenChange={setIsOpen}
+                    >
+                      <DialogPrimitive.Trigger asChild>
+                        <Button
+                          aria-label="View Note"
+                          onClick={() => handleModal(row)}
+                        >
+                          <HamburgerMenuIcon />
+                        </Button>
+                      </DialogPrimitive.Trigger>
+                    </DialogPrimitive.Root>
                   </td>
                 </tr>
               ))}
@@ -187,6 +226,70 @@ const Index = ({ list }: Props) => {
           )}
         </div>
       </div>
+
+      <DialogPrimitive.Root modal open={isOpen} onOpenChange={setIsOpen}>
+        <Transition.Root show={isOpen}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <DialogPrimitive.Overlay
+              forceMount
+              className="fixed inset-0 z-20 bg-black/50"
+            />
+          </Transition.Child>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <DialogPrimitive.Content
+              forceMount
+              className={cx(
+                'fixed z-50',
+                'w-[95vw] max-w-md rounded-lg p-4 md:w-full max-h-[600px] sm:max-h-full overflow-auto',
+                'top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]',
+                'bg-white dark:bg-gray-800',
+                'focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75'
+              )}
+            >
+              <div className="flex items-center justify-between">
+                <DialogPrimitive.Title className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                  {content?.title || "VNDB's Nuked Entry"} -{' '}
+                  {content?.vote > 0 ? content?.vote : 'Not Rated'}
+                </DialogPrimitive.Title>
+                <Tag status={content?.status} />
+              </div>
+
+              <DialogPrimitive.Description className="text-sm font-normal text-gray-700 dark:text-gray-400">
+                {content?.notes}
+              </DialogPrimitive.Description>
+
+              <div className="mt-4 flex justify-end">
+                <DialogPrimitive.Close
+                  className={cx(
+                    'inline-flex select-none justify-center rounded-md px-4 py-2 text-sm font-medium',
+                    'bg-violet-600 text-white hover:bg-violet-700 dark:bg-violet-700 dark:text-violet-100 dark:hover:bg-violet-600',
+                    'border border-transparent',
+                    'focus:outline-none focus-visible:ring focus-visible:ring-violet-500 focus-visible:ring-opacity-75'
+                  )}
+                >
+                  Close
+                </DialogPrimitive.Close>
+              </div>
+            </DialogPrimitive.Content>
+          </Transition.Child>
+        </Transition.Root>
+      </DialogPrimitive.Root>
     </Main>
   );
 };

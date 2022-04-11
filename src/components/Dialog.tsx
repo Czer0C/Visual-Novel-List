@@ -18,7 +18,7 @@ const Dialog = ({ content }: Props) => {
   return (
     <DialogPrimitive.Root modal open={isOpen} onOpenChange={setIsOpen}>
       <DialogPrimitive.Trigger asChild>
-        <Button>
+        <Button aria-label="View Note">
           <HamburgerMenuIcon />
         </Button>
       </DialogPrimitive.Trigger>
