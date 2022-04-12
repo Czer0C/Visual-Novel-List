@@ -10,6 +10,7 @@ import {
   HamburgerMenuIcon,
 } from '@radix-ui/react-icons';
 import cx from 'classnames';
+import Image from 'next/image';
 
 import Button from '@/components/Button';
 import Select from '@/components/Select';
@@ -167,12 +168,13 @@ const Index = ({ list }: Props) => {
                         <div className="mr-2">
                           {row.image ? (
                             <>
-                              <img
-                                // className="aspect-auto w-24"
+                              <Image
                                 src={row.image}
-                                alt={`Cover for ${row.title}`}
-                                width={72}
-                                height={96}
+                                alt={row.title}
+                                layout="intrinsic"
+                                width={70}
+                                height={90}
+                                objectFit="contain"
                               />
                             </>
                           ) : (
