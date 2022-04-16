@@ -1,21 +1,19 @@
-import { Cross1Icon } from '@radix-ui/react-icons';
+import { Cross1Icon, QuestionMarkIcon } from '@radix-ui/react-icons';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import cx from 'classnames';
 
-import Button from '@/components/Button';
-import Tag from '@/components/Tag';
-
 interface Props {
-  content: string;
-  status: string;
+  content?: any;
 }
 
-const Popover = ({ content, status }: Props) => {
+const Popover = ({ content }: Props) => {
   return (
-    <div className="relative inline-block text-left">
-      <PopoverPrimitive.Root>
+    <>
+      <PopoverPrimitive.Root modal>
         <PopoverPrimitive.Trigger asChild>
-          <Button>Note</Button>
+          <span className="cursor-pointer rounded-full bg-violet-600 p-1 text-xs font-bold">
+            <QuestionMarkIcon />
+          </span>
         </PopoverPrimitive.Trigger>
         <PopoverPrimitive.Content
           align="center"
@@ -28,8 +26,6 @@ const Popover = ({ content, status }: Props) => {
           )}
         >
           <PopoverPrimitive.Arrow className="fill-current text-white dark:text-gray-700" />
-
-          <Tag status={status} />
 
           <h3 className="my-1 overflow-hidden text-sm font-medium text-gray-900 dark:text-gray-300">
             {content}
@@ -45,7 +41,7 @@ const Popover = ({ content, status }: Props) => {
           </PopoverPrimitive.Close>
         </PopoverPrimitive.Content>
       </PopoverPrimitive.Root>
-    </div>
+    </>
   );
 };
 

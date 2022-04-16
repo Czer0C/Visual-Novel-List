@@ -7,15 +7,16 @@ export type NavItem = {
   title: string;
 };
 
+export type Tier = 'X' | 'S' | 'A' | 'B' | 'C';
+
 export type MergedVNItem = {
-  status: string;
-  statusCode: number;
+  status: Status;
   vote: number;
   voted: string | number;
   id: number;
   title: string;
-  original?: string;
-  released?: Date;
+  original?: Nullable<string>;
+  released?: string;
   length?: number;
   description?: string;
   links?: Links;
@@ -23,6 +24,7 @@ export type MergedVNItem = {
   image_nsfw: boolean;
   image_flagging?: ImageFlagging;
   notes: string;
+  tier: Tier;
 };
 
 export type VisualNovel = {
@@ -72,6 +74,13 @@ export type ImageFlagging = {
   sexual_avg: number;
   violence_avg: number;
 };
+
+export type Status = {
+  label: string;
+  id: number;
+};
+
+export type Nullable<T> = T | null | undefined;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export enum SORT_STATE {

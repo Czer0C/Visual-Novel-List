@@ -1,27 +1,21 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 
 import { Transition } from '@headlessui/react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import cx from 'classnames';
 
-import Button from '@/components/Button';
+import Popover from '@/components/Popover';
 import Tag from '@/components/Tag';
 import { MergedVNItem } from '@/utils/types';
 
 interface Props {
+  isOpen: any;
+  setIsOpen: any;
   content: MergedVNItem;
 }
-const Dialog = ({ content }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const Dialog = ({ isOpen, setIsOpen, content }: Props) => {
   return (
     <DialogPrimitive.Root modal open={isOpen} onOpenChange={setIsOpen}>
-      <DialogPrimitive.Trigger asChild>
-        <Button aria-label="View Note">
-          <HamburgerMenuIcon />
-        </Button>
-      </DialogPrimitive.Trigger>
       <Transition.Root show={isOpen}>
         <Transition.Child
           as={Fragment}
@@ -34,7 +28,7 @@ const Dialog = ({ content }: Props) => {
         >
           <DialogPrimitive.Overlay
             forceMount
-            className="fixed inset-0 z-20 bg-black/50"
+            className="fixed inset-0 z-20 bg-black/60"
           />
         </Transition.Child>
         <Transition.Child
@@ -50,22 +44,42 @@ const Dialog = ({ content }: Props) => {
             forceMount
             className={cx(
               'fixed z-50',
-              'w-[95vw] max-w-md rounded-lg p-4 md:w-full max-h-[500px] sm:max-h-full overflow-auto',
+              'max-w-[95vw] sm:max-w-lg rounded-lg p-6 md:w-full max-h-[80vh] overflow-auto',
               'top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]',
               'bg-white dark:bg-gray-800',
               'focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75'
             )}
           >
-            <div className="flex items-center justify-between">
-              <DialogPrimitive.Title className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                {content.title || "VNDB's Nuked Entry"} -{' '}
-                {content.vote > 0 ? content.vote : 'Not Rated'}
+            <div className="my-2 flex items-center justify-between">
+              <DialogPrimitive.Title className="flex items-center gap-1 text-lg font-medium text-gray-900 dark:text-gray-100">
+                {content?.title || "VNDB's Nuked Entry"}
+
+                <Popover
+                  content={
+                    <>
+                      {content.description}
+                      <br />
+                      Read More At:{' '}
+                      <a
+                        className="text-blue-500"
+                        href={`https://vndb.org/v${content.id}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        https://vndb.org/v{content.id}
+                      </a>
+                    </>
+                  }
+                />
               </DialogPrimitive.Title>
-              <Tag status={content.status} />
+              <Tag tier={content.tier} status={content.status.label} />
             </div>
 
             <DialogPrimitive.Description className="text-sm font-normal text-gray-700 dark:text-gray-400">
               {content.notes}
+              <h6 className="mt-2">
+                <b>Verdict:</b> <Tag vote={content.vote} />
+              </h6>
             </DialogPrimitive.Description>
 
             <div className="mt-4 flex justify-end">

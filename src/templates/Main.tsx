@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
+import ThemeSwitcher from '@/components/ThemeSwitcher';
 import { AppConfig } from '@/utils/AppConfig';
 
 type IMainProps = {
@@ -8,22 +9,26 @@ type IMainProps = {
 };
 
 const Main = (props: IMainProps) => (
-  <div className="w-full px-1 text-gray-700 antialiased">
+  <div className="w-full px-1 text-gray-700 antialiased dark:bg-gray-900">
     {props.meta}
 
     <div className="mx-auto max-w-screen-md">
       <div className="border-b border-gray-300">
-        <div className="py-6">
-          <div className="text-3xl font-bold text-gray-900">
+        <div className="py-4">
+          <div className="text-3xl font-bold text-gray-900 dark:text-gray-200">
             {AppConfig.title}
           </div>
-          <div className="text-xl">{AppConfig.description}</div>
+          <div className="flex items-end justify-between text-xl dark:text-gray-400">
+            <span>{AppConfig.description}</span>
+
+            <ThemeSwitcher />
+          </div>
         </div>
       </div>
 
-      <div className="content py-5 text-xl">{props.children}</div>
+      <div className="contents py-5 text-xl">{props.children}</div>
 
-      <div className="border-t border-gray-300 py-8 text-center text-sm">
+      <div className="border-t border-gray-300 py-8 text-center text-sm dark:text-gray-400">
         © Copyright {new Date().getFullYear()} {AppConfig.title}. Powered with{' '}
         <span role="img" aria-label="Love">
           ♥
