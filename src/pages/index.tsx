@@ -19,7 +19,7 @@ const Index = ({ list }: Props) => {
       }
     >
       <div className="flex min-h-screen w-full items-start justify-center overflow-auto font-sans">
-        <div className="my-6 rounded bg-white shadow-lg ">
+        <div className="my-6 rounded shadow-lg ">
           <Table list={list} />
         </div>
       </div>

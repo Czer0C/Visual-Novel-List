@@ -118,8 +118,8 @@ const Table = ({ list }: Props) => {
     <>
       <table className="w-full table-auto ">
         <thead>
-          <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600 dark:bg-gray-800 dark:text-gray-100">
-            <th className="rounded-tl-lg p-3 text-left">#</th>
+          <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600  dark:bg-gray-800 dark:text-gray-100">
+            <th className="rounded-tl-lg p-3 text-left ">#</th>
             <th className="flex h-[61px] items-center justify-between p-3 text-left">
               <span>
                 Title
@@ -167,7 +167,7 @@ const Table = ({ list }: Props) => {
               </Tooltip>
             </th>
 
-            <th className="rounded-tr-lg p-3 text-center">
+            <th className="rounded-tr-lg p-3 text-center ">
               <Select onChange={handleFilter} />
             </th>
           </tr>
@@ -182,7 +182,6 @@ const Table = ({ list }: Props) => {
               <>
                 <tr
                   key={id}
-                  id={`${id}`}
                   className="border-b-2 border-gray-200 pb-2  dark:border-gray-400 dark:bg-gray-700"
                 >
                   <td className="w-10 p-3 text-left">
