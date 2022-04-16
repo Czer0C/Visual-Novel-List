@@ -208,15 +208,15 @@ const Table = ({ list }: Props) => {
                       onOpenChange={setIsOpen}
                     >
                       <DialogPrimitive.Trigger asChild>
-                        <Tooltip content="View Details">
-                          <Button
-                            aria-label="View Note"
-                            id={`${id}`}
-                            onClick={handleModal}
-                          >
+                        <Button
+                          aria-label="View Note"
+                          id={`${id}`}
+                          onClick={handleModal}
+                        >
+                          <Tooltip content="View Details">
                             <HamburgerMenuIcon />
-                          </Button>
-                        </Tooltip>
+                          </Tooltip>
+                        </Button>
                       </DialogPrimitive.Trigger>
                     </DialogPrimitive.Root>
                   </td>
