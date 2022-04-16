@@ -116,7 +116,7 @@ const Table = ({ list }: Props) => {
 
   return (
     <>
-      <table className="w-full table-auto">
+      <table className="w-full table-auto ">
         <thead>
           <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600 dark:bg-gray-800 dark:text-gray-100">
             <th className="rounded-tl-lg p-3 text-left">#</th>

@@ -44,7 +44,7 @@ const Dialog = ({ isOpen, setIsOpen, content }: Props) => {
             forceMount
             className={cx(
               'fixed z-50',
-              'max-w-[95vw] sm:max-w-lg rounded-lg p-6 md:w-full max-h-[80vh] overflow-auto',
+              'w-[350px] sm:max-w-lg rounded-lg p-6 md:w-full max-h-[80vh] overflow-auto',
               'top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]',
               'bg-white dark:bg-gray-800',
               'focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75'

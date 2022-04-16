@@ -17,6 +17,7 @@ const Toggle = () => {
         window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
       document.documentElement.classList.add('dark');
+      toggleDark(true);
     } else {
       document.documentElement.classList.remove('dark');
     }
