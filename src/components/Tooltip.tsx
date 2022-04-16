@@ -19,7 +19,7 @@ const Tooltip = ({ children, content }: Props) => {
             'radix-side-bottom:animate-slide-up-fade',
             'radix-side-left:animate-slide-right-fade',
             'inline-flex items-center rounded-md px-2 py-1',
-            'bg-white text-gray-500 dark:bg-gray-800 dark:text-white'
+            'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-white shadow-md'
           )}
         >
           <TooltipPrimitive.Arrow className="fill-current text-white dark:text-gray-800" />

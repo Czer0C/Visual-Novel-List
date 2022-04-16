@@ -42,11 +42,11 @@ const Toggle = () => {
     >
       <Button>
         {isDark ? (
-          <MoonIcon className="h-5 w-5 text-gray-300 dark:text-gray-600" />
+          <MoonIcon className="h-5 w-5 text-gray-300 dark:text-gray-200" />
         ) : (
           <SunIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
         )}
-        <span className="ml-2 leading-5 dark:text-gray-700 ">
+        <span className="ml-2 leading-5 dark:text-gray-200 ">
           {isDark ? 'Dark' : 'Light'}
         </span>
       </Button>

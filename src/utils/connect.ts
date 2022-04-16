@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable unused-imports/no-unused-vars */
 /* eslint-disable no-plusplus */
@@ -5,9 +6,7 @@
 import VNDB from 'vndb-api';
 import type { VNDBResponse } from 'vndb-api/lib/utils';
 
-import { STATUS } from '@/utils/constant';
-
-import { VisualNovel, VNInUserList } from './types';
+import { VisualNovel, VNInUserList, Tier } from './types';
 
 type Response = {
   success: boolean;
@@ -15,10 +14,10 @@ type Response = {
   data: any[];
 };
 
-const userID = `131608`;
-const limit = 100; // ! Maximum number of item per request (though I doubt I'd ever gonna read this many VN)
+const ID = `131608`;
+const LIMIT = 100; // ! Maximum number of item per request (though I doubt I'd ever gonna read this many VN)
 
-const getUserList = async (uID: string, lim: number) => {
+const getUserList = async (userID: string, limit: number) => {
   const response: Response = {
     success: false,
     message: '',
@@ -33,7 +32,7 @@ const getUserList = async (uID: string, lim: number) => {
       maxConnection: 10,
     });
 
-    const query = `get ulist basic,labels (uid=${uID}) {"results": ${lim}}`;
+    const query = `get ulist basic,labels (uid=${userID}) {"results": ${limit}}`;
 
     try {
       const getVNList: VNDBResponse = await vndb.query(query);
@@ -54,7 +53,7 @@ const getUserList = async (uID: string, lim: number) => {
   return response;
 };
 
-const getVisualNovel = async (vnIDs: number[] | string[]) => {
+const getVisualNovelInfo = async (vnIDs: number[] | string[]) => {
   const response: Response = {
     success: false,
     message: '',
@@ -71,6 +70,7 @@ const getVisualNovel = async (vnIDs: number[] | string[]) => {
   try {
     const getVNs: VNDBResponse = await vndb.query(query);
     const vnList: VisualNovel[] = getVNs.items;
+
     response.success = true;
     response.message = 'Get Visual Novels successfully';
     response.data = vnList;
@@ -80,12 +80,12 @@ const getVisualNovel = async (vnIDs: number[] | string[]) => {
       error
     )}`;
   }
-  vndb.destroy();
 
   return response;
 };
 
-const getStatus = (status: number): string | undefined => STATUS[status - 1];
+const getTier = (vote: number): Tier =>
+  vote > 9 ? 'X' : vote > 8 ? 'S' : vote > 7 ? 'A' : vote > 6 ? 'B' : 'C';
 
 const joinAndClean = (uList: VNInUserList[], vns: VisualNovel[]) => {
   const fullList: any[] = uList.map((base) => {
@@ -118,10 +118,10 @@ const joinAndClean = (uList: VNInUserList[], vns: VisualNovel[]) => {
 
     return {
       ...formatedBase,
-      status: getStatus(base?.labels[0]?.id || 0),
-      statusCode: base?.labels[0]?.id,
       vote: base.vote / 10 || -1,
       voted: base.voted || '-',
+      status: labels[0],
+      tier: getTier(base.vote / 10),
       ...extraInfo,
     };
   });
@@ -131,7 +131,7 @@ const joinAndClean = (uList: VNInUserList[], vns: VisualNovel[]) => {
 
 export const getFullList = async () => {
   try {
-    const getUList = await getUserList(userID, limit);
+    const getUList = await getUserList(ID, LIMIT);
 
     if (!getUList.success) {
       console.error('Could not fetch ulist');
@@ -147,7 +147,7 @@ export const getFullList = async () => {
 
     for (let i = 0; i < pages; i++) {
       const currentBatchIDs = vnIDs.slice(i * 25, i * 25 + 25);
-      const getCurrentBatch = await getVisualNovel(currentBatchIDs);
+      const getCurrentBatch = await getVisualNovelInfo(currentBatchIDs);
 
       if (!getCurrentBatch.success) {
         console.error('Could not fetch VNs');
