@@ -11,7 +11,7 @@ const Popover = ({ content }: Props) => {
     <>
       <PopoverPrimitive.Root modal>
         <PopoverPrimitive.Trigger asChild>
-          <span className="cursor-pointer rounded-full bg-violet-600 p-1 text-xs font-bold">
+          <span className="cursor-pointer rounded-full bg-violet-200 p-0.5 text-xs font-bold text-violet-600">
             <QuestionMarkIcon />
           </span>
         </PopoverPrimitive.Trigger>
