@@ -26,7 +26,9 @@ const Popover = ({ content }: Props) => {
           )}
         >
           <PopoverPrimitive.Arrow className="fill-current text-white dark:text-gray-700" />
-
+          <h1 className="font-bold text-gray-800 dark:text-gray-100">
+            Synopsis
+          </h1>
           <h3 className="my-1 overflow-hidden text-sm font-medium text-gray-900 dark:text-gray-300">
             {content}
           </h3>
