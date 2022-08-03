@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from 'react';
+import { useState } from 'react';
 
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import {
@@ -99,9 +99,7 @@ const Table = ({ list }: Props) => {
     setData(filteredList);
   };
 
-  const handleModal = (event: SyntheticEvent) => {
-    const { id } = event.currentTarget;
-
+  const handleModal = (id: number) => {
     const item = data.filter((row) => row.id === +id)[0];
 
     if (!item) return;
@@ -179,48 +177,46 @@ const Table = ({ list }: Props) => {
               { image, title, id, original, image_nsfw, released, tier, vote },
               index
             ) => (
-              <>
-                <tr
-                  key={id}
-                  className="border-b-2 border-gray-200 pb-2  dark:border-gray-400 dark:bg-gray-700"
-                >
-                  <td className="w-10 p-3 text-left">
-                    <span className="font-medium">{index + 1}</span>
-                  </td>
-                  <td className="flex w-32 items-center p-3 text-left sm:w-80">
-                    <CoverImage
-                      src={image}
-                      alt={`Cover for ${title}`}
-                      nsfw={image_nsfw}
-                    />
-                    <Title title={title} original={original} id={id} />
-                  </td>
-                  <td className="w-32 p-3 text-left font-medium">{released}</td>
-                  <td className="w-24 p-3 text-center">
-                    <Tag vote={vote} tier={tier} />
-                  </td>
+              <tr
+                key={id}
+                className="border-b-2 border-gray-200 pb-2  dark:border-gray-400 dark:bg-gray-700"
+              >
+                <td className="w-10 p-3 text-left">
+                  <span className="font-medium">{index + 1}</span>
+                </td>
+                <td className="flex w-32 items-center p-3 text-left sm:w-80">
+                  <CoverImage
+                    src={image}
+                    alt={`Cover for ${title}`}
+                    nsfw={image_nsfw}
+                  />
+                  <Title title={title} original={original} id={id} />
+                </td>
+                <td className="w-32 p-3 text-left font-medium">{released}</td>
+                <td className="w-24 p-3 text-center">
+                  <Tag vote={vote} tier={tier} />
+                </td>
 
-                  <td className="w-24 p-3 text-center">
-                    <DialogPrimitive.Root
-                      modal
-                      open={isOpen}
-                      onOpenChange={setIsOpen}
-                    >
+                <td className="w-24 p-3 text-center">
+                  <DialogPrimitive.Root
+                    modal
+                    open={isOpen}
+                    onOpenChange={setIsOpen}
+                  >
+                    <Tooltip content="View Details">
                       <DialogPrimitive.Trigger asChild>
                         <Button
-                          aria-label="View Note"
+                          aria-label="View Details"
                           id={`${id}`}
-                          onClick={handleModal}
+                          onClick={() => handleModal(id)}
                         >
-                          <Tooltip content="View Details">
-                            <HamburgerMenuIcon />
-                          </Tooltip>
+                          <HamburgerMenuIcon />
                         </Button>
                       </DialogPrimitive.Trigger>
-                    </DialogPrimitive.Root>
-                  </td>
-                </tr>
-              </>
+                    </Tooltip>
+                  </DialogPrimitive.Root>
+                </td>
+              </tr>
             )
           )}
         </tbody>

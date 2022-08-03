@@ -39,9 +39,9 @@ const CoverImage = ({
 
   return nsfw ? (
     <Tooltip content={`${show ? 'hide' : 'show'} nsfw cover`}>
-      <span>
+      <button onClick={() => setShow(!show)}>
         <Img />
-      </span>
+      </button>
     </Tooltip>
   ) : (
     <Img />

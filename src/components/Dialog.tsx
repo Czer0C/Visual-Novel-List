@@ -6,6 +6,7 @@ import cx from 'classnames';
 
 import Popover from '@/components/Popover';
 import Tag from '@/components/Tag';
+import Tooltip from '@/components/Tooltip';
 import { MergedVNItem } from '@/utils/types';
 
 interface Props {
@@ -51,27 +52,29 @@ const Dialog = ({ isOpen, setIsOpen, content }: Props) => {
             )}
           >
             <div className="my-2 flex items-center justify-between">
-              <DialogPrimitive.Title className="flex items-center gap-1 text-lg font-medium text-gray-900 dark:text-gray-100">
-                {content?.title || "VNDB's Nuked Entry"}
+              <Tooltip content="Synopsis" side="right">
+                <DialogPrimitive.Title className="flex items-center gap-1 text-lg font-medium text-gray-900 dark:text-gray-100">
+                  {content?.title || "VNDB's Nuked Entry"}
 
-                <Popover
-                  content={
-                    <>
-                      {content.description}
-                      <br />
-                      Read More At:{' '}
-                      <a
-                        className="text-blue-500"
-                        href={`https://vndb.org/v${content.id}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        https://vndb.org/v{content.id}
-                      </a>
-                    </>
-                  }
-                />
-              </DialogPrimitive.Title>
+                  <Popover
+                    content={
+                      <>
+                        {content.description}
+                        <br />
+                        Read More At:{' '}
+                        <a
+                          className="text-blue-500"
+                          href={`https://vndb.org/v${content.id}`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          https://vndb.org/v{content.id}
+                        </a>
+                      </>
+                    }
+                  />
+                </DialogPrimitive.Title>
+              </Tooltip>
               <Tag tier={content.tier} status={content.status.label} />
             </div>
 
@@ -88,7 +91,7 @@ const Dialog = ({ isOpen, setIsOpen, content }: Props) => {
                   'inline-flex select-none justify-center rounded-md px-4 py-2 text-sm font-medium',
                   'bg-violet-600 text-white hover:bg-violet-700 dark:bg-violet-700 dark:text-violet-100 dark:hover:bg-violet-600',
                   'border border-transparent',
-                  'focus:outline-none focus-visible:ring focus-visible:ring-violet-500 focus-visible:ring-opacity-75'
+                  ' outline-slate-600 focus-visible:outline-dashed focus-visible:outline-2 focus-visible:outline-offset-0 dark:outline-slate-200'
                 )}
               >
                 Close
