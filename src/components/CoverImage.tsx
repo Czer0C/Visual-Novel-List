@@ -1,3 +1,4 @@
+/* eslint-disable no-bitwise */
 /* eslint-disable no-nested-ternary */
 
 import { useState } from 'react';
@@ -14,6 +15,7 @@ interface Props {
   height?: number;
   nsfw: boolean;
 }
+
 const CoverImage = ({
   src,
   alt,
